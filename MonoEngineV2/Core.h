@@ -32,4 +32,7 @@ static void _StaticCtor()
 _static_ctor_ type::__staticCtor(type::_StaticCtor); \
 void type::_StaticCtor()
 
+#define _ToString(x) #x
+#define ToString(x) _ToString(x)
+
 #define ThrowOnFail(expr, msg) if(FAILED(expr)) throw std::runtime_error(__FILE__ ":\n" __FUNCTION__ "\n-> " #expr "\n\nMessage: " #msg)

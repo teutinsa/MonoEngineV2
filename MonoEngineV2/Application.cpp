@@ -21,6 +21,7 @@ Application::~Application()
 	T_FREE(m_msg);
 }
 
+_Success_(return != nullptr)
 Application* Application::GetCurrent()
 {
 	return s_current;
@@ -96,7 +97,7 @@ void Application::Init()
 	MonoMethod* mth = m_runtime->FetchUserEntryPoint();
 	if (mth == nullptr)
 		throw std::runtime_error("No entry point found in user assembly!");
-
+	
 	m_initialized = true;
 }
 

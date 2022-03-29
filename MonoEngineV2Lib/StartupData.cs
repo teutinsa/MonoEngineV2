@@ -1,13 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MonoEngineV2Lib
 {
     public sealed class StartupData
     {
+        public Action<Scene>[] SceneDefinitions { get; }
+        public int StartSceneIndex { get; }
+        public string ApplicationName { get; }
 
+        public StartupData(string appName, int startIndex, params Action<Scene>[] scendeDefs)
+        {
+            ApplicationName = appName;
+            StartSceneIndex = startIndex;
+            SceneDefinitions = scendeDefs;
+        }
     }
 }

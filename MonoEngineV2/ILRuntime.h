@@ -48,6 +48,42 @@ public:
 	/// </summary>
 	/// <returns>A mono pointer to the user defined entry point, null if no entry point was found.</returns>
 	_Success_(return != nullptr) _Check_return_ MonoMethod* FetchUserEntryPoint() const;
+	/// <summary>
+	/// Gets a class by name from the core library.
+	/// </summary>
+	/// <param name="names_space">The namespace of the class.</param>
+	/// <param name="name">The name of the class.</param>
+	/// <returns>A mono pointer to the found class.</returns>
+	_Success_(return != nullptr) _Check_return_ MonoClass* GetCoreClasByName(_In_ const std::string& names_space, _In_ const std::string& name) const;
+	/// <summary>
+	/// Gets a class by name from the engine library.
+	/// </summary>
+	/// <param name="names_space">The namespace of the class.</param>
+	/// <param name="name">The name of the class.</param>
+	/// <returns>A mono pointer to the found class.</returns>
+	_Success_(return != nullptr) _Check_return_ MonoClass* GetLibClasByName(_In_ const std::string& names_space, _In_ const std::string& name) const;
+	/// <summary>
+	/// Gets a class by name from the user library.
+	/// </summary>
+	/// <param name="names_space">The namespace of the class.</param>
+	/// <param name="name">The name of the class.</param>
+	/// <returns>A mono pointer to the found class.</returns>
+	_Success_(return != nullptr) _Check_return_ MonoClass* GetUserClasByName(_In_ const std::string& names_space, _In_ const std::string& name) const;
+	/// <summary>
+	/// Instantiates a new managed object.
+	/// </summary>
+	/// <param name="klass">The class of the object.</param>
+	/// <returns>A mono pointer referencing the managed object.</returns>
+	_Success_(return != nullptr) _Check_return_ MonoObject* New(_In_ MonoClass* klass);
+	/// <summary>
+	/// Invokes a given method, with the provided arguments.
+	/// </summary>
+	/// <param name="method">The method to invoke.</param>
+	/// <param name="obj">The instance object to call the method on, null if static method.</param>
+	/// <param name="args">The arguments.</param>
+	/// <param name="ret">A pointer to a possible return object.</param>
+	/// <returns>A mono pointer to possible managed exception, null if none was thrown.</returns>
+	_Success_(return != nullptr) _Check_return_ MonoObject* Invoke(_In_ MonoMethod* method, _In_opt_ MonoObject* obj, _In_opt_ void** args, _Outptr_opt_result_maybenull_ MonoObject** ret);
 
 private:
 	static ILRuntime* s_current;

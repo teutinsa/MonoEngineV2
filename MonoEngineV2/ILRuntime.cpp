@@ -14,6 +14,7 @@ ILRuntime::~ILRuntime()
 	mono_jit_cleanup(m_domain);
 }
 
+_Success_(return != nullptr)
 ILRuntime* ILRuntime::GetCurrent()
 {
 	return s_current;
@@ -73,6 +74,47 @@ MonoMethod* ILRuntime::FetchUserEntryPoint() const
 		return nullptr;
 
 	return mth;
+}
+
+_Success_(return != nullptr) _Check_return_
+MonoClass* ILRuntime::GetCoreClasByName(_In_ const std::string& names_space, _In_ const std::string& name) const
+{
+	return mono_class_from_name(m_coreLib, names_space.c_str(), name.c_str());
+}
+
+_Success_(return != nullptr) _Check_return_
+MonoClass* ILRuntime::GetLibClasByName(_In_ const std::string& names_space, _In_ const std::string& name) const
+{
+	return mono_class_from_name(m_engineLib, names_space.c_str(), name.c_str());
+}
+
+_Success_(return != nullptr) _Check_return_
+MonoClass* ILRuntime::GetUserClasByName(_In_ const std::string& names_space, _In_ const std::string& name) const
+{
+	return mono_class_from_name(m_userLib, names_space.c_str(), name.c_str());
+}
+
+_Success_(return != nullptr) _Check_return_
+MonoObject* ILRuntime::New(_In_ MonoClass* klass)
+{
+	return mono_object_new(m_domain, klass);
+}
+
+_Success_(return != nullptr) _Check_return_
+MonoObject* ILRuntime::Invoke(_In_ MonoMethod* method, _In_opt_ MonoObject* obj, _In_opt_ void** args, _Outptr_opt_result_maybenull_ MonoObject** ret)
+{
+	MonoObject* exc = nullptr;
+
+	MonoMethod* mth = method;
+	if (obj != nullptr)
+		mth = mono_object_get_virtual_method(obj, method);
+
+	if(ret == nullptr)
+		mono_runtime_invoke(method, obj, args, &exc);
+	else
+		(*ret) = mono_runtime_invoke(method, obj, args, &exc);
+
+	return exc;
 }
 
 ILRuntime* ILRuntime::s_current;
