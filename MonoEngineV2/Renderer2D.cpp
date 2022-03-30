@@ -149,6 +149,11 @@ RenderType Renderer2D::GetRenderType() const
     return RenderType::D2D;
 }
 
+IWICImagingFactory* Renderer2D::GetImageFactroy()
+{
+    return s_imageFactory;
+}
+
 Renderer2D* Renderer2D::s_current;
 ID2D1Factory* Renderer2D::s_factory;
 IDWriteFactory* Renderer2D::s_writeFactory;

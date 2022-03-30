@@ -33,6 +33,10 @@ public:
 	/// Gets a hash value that is unique for this components type.
 	/// </summary>
 	virtual size_t GetHash() const abstract;
+	/// <summary>
+	/// Registers the internal calls in the managed runtime.
+	/// </summary>
+	static void RegisterIntCalls();
 
 protected:
 	/// <summary>
@@ -74,6 +78,10 @@ public:
 	/// Gets the managed type of this script component.
 	/// </summary>
 	_Ret_notnull_ MonoType* GetType() const;
+	/// <summary>
+	/// Registers the internal calls in the managed runtime.
+	/// </summary>
+	static void RegisterIntCalls();
 
 private:
 	MonoClass* m_class;

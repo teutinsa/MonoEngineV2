@@ -68,4 +68,9 @@ void SceneManager::Render()
 		m_currentScene->Render();
 }
 
+void SceneManager::RegisterIntCalls()
+{
+	Scene::RegisterIntCalls();
+}
+
 SceneManager* SceneManager::s_current;

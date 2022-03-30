@@ -111,7 +111,9 @@ void Application::Init()
 	MonoMethod* mth = m_runtime->FetchUserEntryPoint();
 	if (mth == nullptr)
 		throw std::runtime_error("No entry point found in user assembly!");
-	
+
+	RegisterIntCalls();
+
 	m_initialized = true;
 }
 
@@ -141,4 +143,16 @@ void Application::Render()
 	m_scenes->Render();
 
 	m_renderer->End();
+}
+
+void Application::RegisterIntCalls()
+{
+	ILRuntime::RegIntCall("MonoEngineV2Lib.Application::Quit", IntCall_Quit);
+}
+
+void Application::IntCall_Quit()
+{
+	Application::GetCurrent()->Quit();
+
+	SceneManager::RegisterIntCalls();
 }

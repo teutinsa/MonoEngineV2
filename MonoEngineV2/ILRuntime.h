@@ -13,6 +13,12 @@ public:
 	~ILRuntime();
 
 	/// <summary>
+	/// Registers a internal call in the runtime.
+	/// </summary>
+	/// <param name="name">The full name of the internal call method.</param>
+	/// <param name="func">The unmanaged function pointer for the internal call to use.</param>
+	static void RegIntCall(const std::string& name, void* func);
+	/// <summary>
 	/// Gets the current ILRuntime instance.
 	/// </summary>
 	/// <returns>A pointer to the current ILRuntime instance.</returns>

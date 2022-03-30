@@ -32,6 +32,11 @@ void Component::Render()
 {
 }
 
+void Component::RegisterIntCalls()
+{
+	ScriptComponent::RegisterIntCalls();
+}
+
 _Ret_notnull_
 MonoObject* Component::GetManagedObject() const
 {
@@ -79,6 +84,10 @@ _Ret_notnull_
 MonoType* ScriptComponent::GetType() const
 {
 	return mono_class_get_type(m_class);
+}
+
+void ScriptComponent::RegisterIntCalls()
+{
 }
 
 void ScriptComponent::InvokeOnCreate()

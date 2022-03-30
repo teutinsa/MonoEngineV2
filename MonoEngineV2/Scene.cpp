@@ -77,3 +77,11 @@ ColorF Scene::GetClearColor() const
 {
 	return m_clearColor;
 }
+
+void Scene::RegisterIntCalls()
+{
+
+
+	ResourceManager::RegisterIntCalls();
+	GameObject::RegisterIntCalls();
+}

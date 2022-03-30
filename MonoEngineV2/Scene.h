@@ -2,6 +2,7 @@
 
 #include "GameObject.h"
 #include "ColorF.h"
+#include "ResourceManager.h"
 
 class Scene
 {
@@ -50,9 +51,14 @@ public:
 	/// Sets the clear color of the scene.
 	/// </summary>
 	ColorF GetClearColor() const;
+	/// <summary>
+	/// Registers the internal calls in the managed runtime.
+	/// </summary>
+	static void RegisterIntCalls();
 
 private:
 	std::string m_name;
 	std::vector<GameObject*> m_objects;
 	ColorF m_clearColor;
+	ResourceManager m_resources;
 };

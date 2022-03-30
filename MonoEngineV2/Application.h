@@ -65,4 +65,11 @@ private:
 	/// Render
 	/// </summary>
 	void Render();
+	/// <summary>
+	/// Registers the internal calls in the managed runtime.
+	/// </summary>
+	void RegisterIntCalls();
+
+	//Internal calls
+	static void IntCall_Quit();
 };

@@ -18,6 +18,8 @@
 
 #define WIN32_LEAN_AND_MEAN
 #define NODRAWTEXT
+#define NOGDI
+#define NOMINMAX
 #include <Windows.h>
 
 #include <atlbase.h>
@@ -29,7 +31,10 @@
 
 #include <mono/jit/jit.h>
 #include <mono/metadata/assembly.h>
+#include <mono/metadata/metadata.h>
 #include <mono/metadata/mono-config.h>
 #include <mono/metadata/mono-gc.h>
 #include <mono/metadata/mono-debug.h>
 #include <mono/metadata/debug-helpers.h>
+#include <mono/metadata/debug-mono-symfile.h>
+#include <mono/metadata/exception.h>

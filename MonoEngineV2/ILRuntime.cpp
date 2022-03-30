@@ -15,6 +15,11 @@ ILRuntime::~ILRuntime()
 }
 
 _Success_(return != nullptr)
+void ILRuntime::RegIntCall(const std::string & name, void* func)
+{
+	mono_add_internal_call(name.c_str(), func);
+}
+
 ILRuntime* ILRuntime::GetCurrent()
 {
 	return s_current;

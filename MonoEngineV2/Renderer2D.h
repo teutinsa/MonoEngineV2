@@ -61,6 +61,10 @@ public:
 	/// Gets the render type of this renderer.
 	/// </summary>
 	RenderType GetRenderType() const;
+	/// <summary>
+	/// Gets the image factory for this renderer.
+	/// </summary>
+	_Success_(return != nullptr) static IWICImagingFactory* GetImageFactroy();
 
 private:
 	static Renderer2D* s_current;

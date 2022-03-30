@@ -53,6 +53,10 @@ public:
 	/// Render
 	/// </summary>
 	void Render();
+	/// <summary>
+	/// Registers the internal calls in the managed runtime.
+	/// </summary>
+	static void RegisterIntCalls();
 
 private:
 	static SceneManager* s_current;

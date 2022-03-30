@@ -63,6 +63,11 @@ void GameObject::RemoveComonent(_In_opt_ const Component* comp)
 		}
 }
 
+void GameObject::RegisterIntCalls()
+{
+	Component::RegisterIntCalls();
+}
+
 void GameObject::AddComponent(_In_ Component* comp)
 {
 	if (comp->m_gameObject != nullptr)

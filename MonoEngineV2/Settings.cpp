@@ -27,3 +27,7 @@ bool Settings::ReadStruct(_In_ const std::string& section, _In_ const std::strin
 {
 	return GetPrivateProfileStructA(section.c_str(), key.c_str(), lpStruct, size, m_filename.c_str());
 }
+
+void Settings::RegisterIntCalls()
+{
+}

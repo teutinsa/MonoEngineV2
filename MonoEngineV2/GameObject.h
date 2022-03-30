@@ -75,6 +75,10 @@ public:
 	{
 		return (std::vector<T*>)GetComponents(Component::MakeHash<T>());
 	}
+	/// <summary>
+	/// Registers the internal calls in the managed runtime.
+	/// </summary>
+	static void RegisterIntCalls();
 
 private:
 	std::string m_name;

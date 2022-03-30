@@ -41,6 +41,10 @@ public:
 	/// <param name="size">The size of the data in bytes.</param>
 	/// <returns>True if the function succeeds, otherwise false.</returns>
 	_Success_(return) _Check_return_ bool ReadStruct(_In_ const std::string& section, _In_ const std::string& key, _Out_writes_bytes_(size) void* lpStruct, _In_ UINT size);
+	/// <summary>
+	/// Registers the internal calls in the managed runtime.
+	/// </summary>
+	static void RegisterIntCalls();
 
 private:
 	std::string m_filename;
