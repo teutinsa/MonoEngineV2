@@ -5,7 +5,11 @@
 #include "ILRuntime.h"
 
 ImageResource::ImageResource(_In_ const std::wstring& filename)
+<<<<<<< HEAD
+	: Resource(ILRuntime::GetCurrent()->GetLibClasByName("MonoEngineV2Lib", "Image"))
+=======
 	: Resource(ILRuntime::GetCurrent()->GetLibClasByName("MonoEngineV2Lib", "ImageResource"))
+>>>>>>> fbb49bb (Started to implement a resource system.)
 {
 	if (Renderer::GetCurrent()->GetRenderType() != RenderType::D2D)
 		throw std::runtime_error("Can't load a 2d resource if the render type is not set to 2d!");

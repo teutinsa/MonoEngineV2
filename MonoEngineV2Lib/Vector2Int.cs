@@ -1,5 +1,8 @@
-﻿namespace MonoEngineV2Lib
+﻿using System.Runtime.InteropServices;
+
+namespace MonoEngineV2Lib
 {
+    [StructLayout(LayoutKind.Sequential)]
     public struct Vector2Int
     {
         public int x;

@@ -33,14 +33,21 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Brush.cs" />
     <Compile Include="BufferType.cs" />
+    <Compile Include="ColorF.cs" />
     <Compile Include="CoordinateMode.cs" />
     <Compile Include="EngineObject.cs" />
     <Compile Include="GameObject.cs" />
+    <Compile Include="Image.cs" />
     <Compile Include="NotContructibleException.cs" />
     <Compile Include="Object.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resource.cs" />
+    <Compile Include="ResourceManager.cs" />
     <Compile Include="Scene.cs" />
+    <Compile Include="SceneManager.cs" />
+    <Compile Include="SolidColorBrush.cs" />
     <Compile Include="StartupData.cs" />
     <Compile Include="Vector2Int.cs" />
   </ItemGroup>
