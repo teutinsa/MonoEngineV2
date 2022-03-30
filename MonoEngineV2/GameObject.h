@@ -63,7 +63,7 @@ public:
 	template<typename T>
 	_Success_(return != nullptr) _Check_return_ _Ret_maybenull_ T* GetComponent() const
 	{
-		return (T*)GetComponent(Component::GetHash<T>());
+		return (T*)GetComponent(Component::MakeHash<T>());
 	}
 	/// <summary>
 	/// Tries to find all components with the given type and returns the matches.
@@ -73,7 +73,7 @@ public:
 	template<typename T>
 	std::vector<T*> GetComponents() const
 	{
-		return (std::vector<T*>)GetComponents(Component::GetHash<T>())
+		return (std::vector<T*>)GetComponents(Component::MakeHash<T>());
 	}
 
 private:

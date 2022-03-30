@@ -117,13 +117,14 @@ void Application::Shut()
 
 void Application::Update()
 {
+	m_scenes->Update();
 }
 
 void Application::Render()
 {
 	m_renderer->Begin();
 
-
+	m_scenes->Render();
 
 	m_renderer->End();
 }

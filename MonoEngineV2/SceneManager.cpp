@@ -51,19 +51,21 @@ Scene* SceneManager::GetSceneByName(_In_ const std::string& name) const
 	return nullptr;
 }
 
-void SceneManager::SetCurrentScene(Scene* scene)
+void SceneManager::SetCurrentScene(_In_ Scene* scene)
 {
 	m_currentScene = scene;
 }
 
 void SceneManager::Update()
 {
-	m_currentScene->Update();
+	if (m_currentScene != nullptr)
+		m_currentScene->Update();
 }
 
 void SceneManager::Render()
 {
-	m_currentScene->Render();
+	if (m_currentScene != nullptr)
+		m_currentScene->Render();
 }
 
 SceneManager* SceneManager::s_current;

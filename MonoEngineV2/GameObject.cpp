@@ -78,6 +78,7 @@ Component* GameObject::GetComponent(_In_ size_t hash_code) const
 	for (Component* comp : m_components)
 		if (comp->GetHash() == hash_code)
 			return comp;
+	return nullptr;
 }
 
 std::vector<Component*> GameObject::GetComponents(_In_ size_t hash_code) const

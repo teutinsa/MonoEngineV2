@@ -33,6 +33,8 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BufferType.cs" />
+    <Compile Include="CoordinateMode.cs" />
     <Compile Include="EngineObject.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="NotContructibleException.cs" />
@@ -40,6 +42,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scene.cs" />
     <Compile Include="StartupData.cs" />
+    <Compile Include="Vector2Int.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

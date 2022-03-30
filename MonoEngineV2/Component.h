@@ -11,7 +11,7 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	Component();
+	Component(_In_ MonoClass* klass);
 	virtual ~Component();
 
 	/// <summary>
@@ -35,11 +35,6 @@ public:
 	virtual size_t GetHash() const abstract;
 
 protected:
-	/// <summary>
-	/// Gets the managed class of this component.
-	/// </summary>
-	/// <returns>A mono pointer to a class.</returns>
-	_Ret_notnull_ virtual MonoClass* GetManagedClass() const abstract;
 	/// <summary>
 	/// Gets the managed object of this component.
 	/// </summary>
@@ -79,13 +74,6 @@ public:
 	/// Gets the managed type of this script component.
 	/// </summary>
 	_Ret_notnull_ MonoType* GetType() const;
-
-protected:
-	/// <summary>
-	/// Gets the managed class of this component.
-	/// </summary>
-	/// <returns>A mono pointer to a class.</returns>
-	_Ret_notnull_ virtual MonoClass* GetManagedClass() const;
 
 private:
 	MonoClass* m_class;

@@ -33,6 +33,30 @@ public:
 	/// Ends the rendering cycle.
 	/// </summary>
 	void End();
+	/// <summary>
+	/// Sets the coordinate mode.
+	/// </summary>
+	void SetCoordinateMode(_In_ CoordinateMode value);
+	/// <summary>
+	/// Gets the coordinate mode.
+	/// </summary>
+	CoordinateMode GetCoordinateMode() const;
+	/// <summary>
+	/// Sets the buffer type of this renderer.
+	/// </summary>
+	void SetBufferType(_In_ BufferType value);
+	/// <summary>
+	/// Gets the buffer type of this renderer.
+	/// </summary>
+	BufferType GetBufferType() const;
+	/// <summary>
+	/// Sets the size of the buffer.
+	/// </summary>
+	void SetPixelSize(_In_ Vector2Int value);
+	/// <summary>
+	/// Gets the size of the buffer.
+	/// </summary>
+	Vector2Int GetPixelSize() const;
 
 private:
 	static Renderer2D* s_current;
@@ -40,8 +64,10 @@ private:
 	static IDWriteFactory* s_writeFactory;
 	static IWICImagingFactory* s_imageFactory;
 	ID2D1HwndRenderTarget* m_target;
+	ID2D1BitmapRenderTarget* m_buffer;
 	Window* m_wnd;
-	D2D1_MATRIX_3X2_F m_matNormal;
+	CoordinateMode m_mode;
+	BufferType m_bufType;
 
 	STATIC_CTOR(Renderer2D);
 };

@@ -1,14 +1,6 @@
 #include "pch.h"
 #include "Transform.h"
 
-Vector2f::Vector2f(_In_ float x, _In_ float y)
-	: x(x), y(y)
-{ }
-
-Vector2f::Vector2f()
-	: Vector2f(0.0f, 0.0f)
-{ }
-
 Transform::Transform()
 	: position(0.0f, 0.0f), rotation(0.0f), scale(1.0f, 1.0f), parent(nullptr)
 { }

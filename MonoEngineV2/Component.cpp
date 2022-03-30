@@ -3,9 +3,9 @@
 
 #include "ILRuntime.h"
 
-Component::Component()
+Component::Component(_In_ MonoClass* klass)
 {
-	m_managed = ILRuntime::GetCurrent()->New(GetManagedClass());
+	m_managed = ILRuntime::GetCurrent()->New(klass);
 	m_handle = mono_gchandle_new(m_managed, false);
 
 	static MonoClass* objectCl;
@@ -39,7 +39,7 @@ MonoObject* Component::GetManagedObject() const
 }
 
 ScriptComponent::ScriptComponent(_In_ MonoClass* klass)
-	: m_class(klass), Component(), m_firstUpdate(true)
+	: m_class(klass), Component(klass), m_firstUpdate(true)
 {
 	m_onCreateMethod = mono_class_get_method_from_name(klass, "OnCreate", 0);
 	m_onDestroyMethod = mono_class_get_method_from_name(klass, "OnDestroy", 0);
@@ -79,12 +79,6 @@ _Ret_notnull_
 MonoType* ScriptComponent::GetType() const
 {
 	return mono_class_get_type(m_class);
-}
-
-_Ret_notnull_
-MonoClass* ScriptComponent::GetManagedClass() const
-{
-	return m_class;
 }
 
 void ScriptComponent::InvokeOnCreate()
