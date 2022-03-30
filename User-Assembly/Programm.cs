@@ -6,7 +6,14 @@ namespace User_Assembly
     {
         static StartupData Main()
         {
-            return null;
+            return new StartupData("Test Game", 0, new SceneCreateProc[]
+            {
+                (Scene scene) =>
+                {
+                    GameObject obj = scene.CreateObject("Test");
+                    
+                }
+            }, BufferType.Custom, new Vector2Int(256, 256), CoordinateMode.PixelPerfect);
         }
     }
 }

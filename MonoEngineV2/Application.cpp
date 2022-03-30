@@ -34,6 +34,8 @@ void Application::Run()
 	float lastTime = GetTime();
 	float currTime = 0.0f;
 	float deltaTime = 0.0f;
+	float frameTime = 0.0f;
+	unsigned frames = 0;
 
 	while (m_msg->message != WM_QUIT)
 	{
@@ -41,8 +43,20 @@ void Application::Run()
 		deltaTime = currTime - lastTime;
 		lastTime = currTime;
 
-		DoEvents();
+		if (frameTime >= 1.0f)
+		{
+			DebugOut("FPS: %u\n", frames);
+			frameTime = 0.0f;
+			frames = 0;
+		}
+		else
+		{
+			frameTime += deltaTime;
+			frames++;
+		}
 
+		DoEvents();
+		
 		Update();
 		Render();
 
@@ -93,7 +107,7 @@ void Application::Init()
 	m_renderer = new Renderer2D(m_wnd);
 
 	m_scenes = new SceneManager();
-	
+
 	MonoMethod* mth = m_runtime->FetchUserEntryPoint();
 	if (mth == nullptr)
 		throw std::runtime_error("No entry point found in user assembly!");

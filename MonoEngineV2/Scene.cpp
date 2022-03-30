@@ -1,8 +1,11 @@
 #include "pch.h"
 #include "Scene.h"
 
+#include "Renderer.h"
+#include "Renderer2D.h"
+
 Scene::Scene(_In_ const std::string& name)
-	: m_name(name)
+	: m_name(name), m_clearColor(0.0f, 0.0f, 0.0f)
 { }
 
 Scene::~Scene()
@@ -24,6 +27,10 @@ void Scene::Update()
 
 void Scene::Render()
 {
+	Renderer* r = Renderer::GetCurrent();
+	if (r->GetRenderType() == RenderType::D2D)
+		reinterpret_cast<Renderer2D*>(r)->GetTarget()->Clear(m_clearColor);
+
 	for (GameObject* obj : m_objects)
 		obj->Render();
 }
@@ -52,9 +59,21 @@ void Scene::DestroyObject(_In_opt_ GameObject* obj)
 		}
 }
 
-GameObject* Scene::FindObjectByName(const std::string& name) const
+_Success_(return != nullptr) _Check_return_
+GameObject* Scene::FindObjectByName(_In_ const std::string& name) const
 {
 	for (GameObject* obj : m_objects)
 		if (obj->GetName() == name)
 			return obj;
+	return nullptr;
+}
+
+void Scene::SetClearColor(_In_ const ColorF& value)
+{
+	m_clearColor = value;
+}
+
+ColorF Scene::GetClearColor() const
+{
+	return m_clearColor;
 }

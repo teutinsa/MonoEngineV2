@@ -36,3 +36,8 @@ void type::_StaticCtor()
 #define ToString(x) _ToString(x)
 
 #define ThrowOnFail(expr, msg) if(FAILED(expr)) throw std::runtime_error(__FILE__ ":\n" __FUNCTION__ "\n-> " #expr "\n\nMessage: " #msg)
+
+/// <summary>
+/// Writes a debug message to the visual studio output.
+/// </summary>
+void DebugOut(_Printf_format_string_ const char* szFormat, ...);

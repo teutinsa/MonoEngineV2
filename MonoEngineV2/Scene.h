@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
+#include "ColorF.h"
 
 class Scene
 {
@@ -41,8 +42,17 @@ public:
 	/// <param name="name">The name to search for.</param>
 	/// <returns>A pointer to the game object, null if no object with the given name was found.</returns>
 	_Success_(return != nullptr) _Check_return_ GameObject* FindObjectByName(_In_ const std::string& name) const;
+	/// <summary>
+	/// Sets the clear color of the scene.
+	/// </summary>
+	void SetClearColor(_In_ const ColorF& value);
+	/// <summary>
+	/// Sets the clear color of the scene.
+	/// </summary>
+	ColorF GetClearColor() const;
 
 private:
 	std::string m_name;
 	std::vector<GameObject*> m_objects;
+	ColorF m_clearColor;
 };

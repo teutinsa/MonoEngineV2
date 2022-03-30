@@ -1,11 +1,11 @@
 #pragma once
 #include "Core.h"
 
-#include "IRenderer.h"
+#include "Renderer.h"
 
 class Window;
 
-class Renderer2D : public IRenderer
+class Renderer2D : public Renderer
 {
 public:
 	/// <summary>
@@ -57,6 +57,10 @@ public:
 	/// Gets the size of the buffer.
 	/// </summary>
 	Vector2Int GetPixelSize() const;
+	/// <summary>
+	/// Gets the render type of this renderer.
+	/// </summary>
+	RenderType GetRenderType() const;
 
 private:
 	static Renderer2D* s_current;

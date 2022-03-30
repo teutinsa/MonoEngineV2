@@ -4,7 +4,7 @@
 class ILRuntime;
 class Settings;
 class Window;
-__interface IRenderer;
+class Renderer;
 class SceneManager;
 
 class Application
@@ -37,7 +37,7 @@ private:
 	ILRuntime* m_runtime;
 	Settings* m_settigs;
 	Window* m_wnd;
-	IRenderer* m_renderer;
+	Renderer* m_renderer;
 	SceneManager* m_scenes;
 
 	/// <summary>

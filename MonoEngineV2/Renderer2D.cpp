@@ -8,8 +8,8 @@ Renderer2D::Renderer2D(_In_ Window* wnd)
 {
     s_current = this;
 
-    ThrowOnFail(s_factory->CreateHwndRenderTarget(D2D1::RenderTargetProperties(), D2D1::HwndRenderTargetProperties(wnd->GetHandle()), &m_target), "HWND render target creation failed!");
     SIZE sz = wnd->GetClientSize();
+    ThrowOnFail(s_factory->CreateHwndRenderTarget(D2D1::RenderTargetProperties(), D2D1::HwndRenderTargetProperties(wnd->GetHandle(), D2D1::SizeU(sz.cx, sz.cy), D2D1_PRESENT_OPTIONS_IMMEDIATELY), &m_target), "HWND render target creation failed!");
     ThrowOnFail(m_target->Resize(D2D1::SizeU(sz.cx, sz.cy)), "HWND render target resizing failed!");
 }
 
@@ -27,6 +27,8 @@ Renderer2D* Renderer2D::GetCurrent()
 _Success_(return != nullptr)
 ID2D1RenderTarget* Renderer2D::GetTarget() const
 {
+    if (m_bufType == BufferType::Custom)
+        return m_buffer;
     return m_target;
 }
 
@@ -35,7 +37,7 @@ void Renderer2D::Begin()
     if (m_bufType == BufferType::Custom)
     {
         m_buffer->BeginDraw();
-        m_buffer->Clear(D2D1::ColorF(D2D1::ColorF::Red));
+        m_buffer->Clear();
     }
     else
     {
@@ -140,6 +142,11 @@ Vector2Int Renderer2D::GetPixelSize() const
 {
     D2D1_SIZE_U sz = m_target->GetPixelSize();
     return Vector2Int(sz.width, sz.height);
+}
+
+RenderType Renderer2D::GetRenderType() const
+{
+    return RenderType::D2D;
 }
 
 Renderer2D* Renderer2D::s_current;
