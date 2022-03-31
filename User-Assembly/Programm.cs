@@ -4,9 +4,10 @@ namespace User_Assembly
 {
     public sealed class TestScript : Script
     {
-        void Start()
+        void OnUpdate()
         {
-            throw new System.Exception("Looool!");
+            if(Input.GetKeyUp(KeyCode.Q))
+                Application.Quit();
         }
     }
 

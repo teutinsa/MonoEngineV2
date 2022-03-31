@@ -5,6 +5,8 @@
 
 Input::Input()
 {
+	s_current = this;
+
 	ZeroMemory(state, 256);
 	ZeroMemory(prevState, 256);
 }
@@ -45,19 +47,19 @@ void Input::RegisterIntCalls()
 	ILRuntime::RegIntCall("MonoEngineV2Lib.Input::GetKeyUp", Mono_GetKeyUp);
 }
 
-bool Input::Mono_GetKey(BYTE* key)
+bool Input::Mono_GetKey(BYTE key)
 {
-	return Input::GetCurrent()->GetKey(*key);
+	return Input::GetCurrent()->GetKey(key);
 }
 
-bool Input::Mono_GetKeyDown(BYTE* key)
+bool Input::Mono_GetKeyDown(BYTE key)
 {
-	return Input::GetCurrent()->GetKeyDown(*key);
+	return Input::GetCurrent()->GetKeyDown(key);
 }
 
-bool Input::Mono_GetKeyUp(BYTE* key)
+bool Input::Mono_GetKeyUp(BYTE key)
 {
-	return Input::GetCurrent()->GetKeyUp(*key);
+	return Input::GetCurrent()->GetKeyUp(key);
 }
 
 Input* Input::s_current;

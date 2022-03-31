@@ -4,6 +4,7 @@
 #include "ILRuntime.h"
 
 Component::Component(_In_ MonoClass* klass)
+	: m_gameObject(nullptr)
 {
 	m_managed = ILRuntime::GetCurrent()->New(klass);
 	m_handle = mono_gchandle_new(m_managed, false);

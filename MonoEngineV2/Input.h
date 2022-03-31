@@ -43,8 +43,8 @@ private:
 	BYTE state[256];
 	BYTE prevState[256];
 
-	static bool Mono_GetKey(BYTE* key);
-	static bool Mono_GetKeyDown(BYTE* key);
-	static bool Mono_GetKeyUp(BYTE* key);
+	static bool Mono_GetKey(BYTE key);
+	static bool Mono_GetKeyDown(BYTE key);
+	static bool Mono_GetKeyUp(BYTE key);
 };
 
