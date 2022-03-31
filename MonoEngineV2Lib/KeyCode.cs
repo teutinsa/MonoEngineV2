@@ -14,6 +14,7 @@
         Control = 0x11,
         Alt = 0x13,
         CapsLock = 0x14,
+        Esc = 0x1B,
         Space = 0x20,
         PageUp = 0x21,
         PageDown = 0x22,

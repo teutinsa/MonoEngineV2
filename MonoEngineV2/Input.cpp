@@ -3,6 +3,8 @@
 
 #include "ILRuntime.h"
 
+#define HiBitSet(x) (x == 1 << 7)
+
 Input::Input()
 {
 	s_current = this;
@@ -25,19 +27,19 @@ void Input::Update()
 _Check_return_
 bool Input::GetKey(_In_ BYTE vk)
 {
-	return (bool)state[vk];
+	return HiBitSet(state[vk]);
 }
 
 _Check_return_
 bool Input::GetKeyDown(_In_ BYTE vk)
 {
-	return (bool)state[vk] && !(bool)prevState[vk];
+	return HiBitSet(state[vk]) && !HiBitSet(prevState[vk]);
 }
 
 _Check_return_
 bool Input::GetKeyUp(_In_ BYTE vk)
 {
-	return !(bool)state[vk] && (bool)prevState[vk];
+	return !HiBitSet(state[vk]) && HiBitSet(prevState[vk]);
 }
 
 void Input::RegisterIntCalls()

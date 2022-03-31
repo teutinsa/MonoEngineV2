@@ -6,7 +6,7 @@ namespace User_Assembly
     {
         void OnUpdate()
         {
-            if(Input.GetKeyUp(KeyCode.Q))
+            if(Input.GetKeyUp(KeyCode.Esc))
                 Application.Quit();
         }
     }
