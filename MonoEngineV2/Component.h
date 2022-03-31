@@ -37,8 +37,6 @@ public:
 	/// Registers the internal calls in the managed runtime.
 	/// </summary>
 	static void RegisterIntCalls();
-
-protected:
 	/// <summary>
 	/// Gets the managed object of this component.
 	/// </summary>

@@ -171,6 +171,7 @@ void Application::RegisterIntCalls()
 {
 	ILRuntime::RegIntCall("MonoEngineV2Lib.Application::Quit", IntCall_Quit);
 
+	Input::RegisterIntCalls();
 	SceneManager::RegisterIntCalls();
 }
 
@@ -238,6 +239,9 @@ void Application::ParseStartupData(_In_ MonoMethod* mth)
 	m_renderer->SetCoordinateMode(m_startupInfo->coordinateMode);
 	m_renderer->SetBufferType(m_startupInfo->bufferType);
 	m_renderer->SetPixelSize(m_startupInfo->customBufferSize);
+	m_scenes->SetSceneDefs(&m_startupInfo->sceneDefinitions);
+
+	m_scenes->LoadScene(m_startupInfo->startSceneIndex);
 }
 
 void Application::IntCall_Quit()

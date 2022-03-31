@@ -36,6 +36,7 @@
     <Compile Include="Brush.cs" />
     <Compile Include="BufferType.cs" />
     <Compile Include="ColorF.cs" />
+    <Compile Include="Component.cs" />
     <Compile Include="CoordinateMode.cs" />
     <Compile Include="EngineObject.cs" />
     <Compile Include="GameObject.cs" />
@@ -50,8 +51,11 @@
     <Compile Include="ResourceManager.cs" />
     <Compile Include="Scene.cs" />
     <Compile Include="SceneManager.cs" />
+    <Compile Include="Script.cs" />
     <Compile Include="SolidColorBrush.cs" />
     <Compile Include="StartupData.cs" />
+    <Compile Include="Transform.cs" />
+    <Compile Include="Vector2f.cs" />
     <Compile Include="Vector2Int.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

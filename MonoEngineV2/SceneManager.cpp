@@ -1,8 +1,10 @@
 #include "pch.h"
 #include "SceneManager.h"
 
+#include "ILRuntime.h"
+
 SceneManager::SceneManager()
-	: m_currentScene(nullptr)
+	: m_currentScene(nullptr), m_sceneDefs(nullptr)
 { }
 
 SceneManager::~SceneManager()
@@ -56,6 +58,20 @@ void SceneManager::SetCurrentScene(_In_ Scene* scene)
 	m_currentScene = scene;
 }
 
+void SceneManager::DestroyScene(_In_ Scene* scene)
+{
+	if (scene == nullptr)
+		return;
+
+	for(auto it = m_scenes.cbegin(); it != m_scenes.cend(); it++)
+		if (*it == scene)
+		{
+			m_scenes.erase(it);
+			SafeDel(scene);
+			return;
+		}
+}
+
 void SceneManager::Update()
 {
 	if (m_currentScene != nullptr)
@@ -66,6 +82,29 @@ void SceneManager::Render()
 {
 	if (m_currentScene != nullptr)
 		m_currentScene->Render();
+}
+
+void SceneManager::SetSceneDefs(_In_ const std::vector<ObjectHandle>* sceneDefs)
+{
+	m_sceneDefs = sceneDefs;
+}
+
+void SceneManager::LoadScene(_In_ int index)
+{
+	if (m_sceneDefs == nullptr)
+		return;
+
+	MonoDelegate* sceneDefDel = (MonoDelegate*)m_sceneDefs->at(index).GetObject();
+
+	Scene* scene = CreateScene("Scene");
+
+	void* args[1];
+	args[0] = scene->GetManagedObject();
+
+	ThrowOnExc(ILRuntime::GetCurrent()->Invoke(sceneDefDel, args, nullptr));
+
+	DestroyScene(m_currentScene);
+	m_currentScene = scene;
 }
 
 void SceneManager::RegisterIntCalls()

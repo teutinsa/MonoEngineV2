@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "Input.h"
 
+#include "ILRuntime.h"
+
 Input::Input()
 {
 	ZeroMemory(state, 256);
@@ -38,6 +40,24 @@ bool Input::GetKeyUp(_In_ BYTE vk)
 
 void Input::RegisterIntCalls()
 {
+	ILRuntime::RegIntCall("MonoEngineV2Lib.Input::GetKey", Mono_GetKey);
+	ILRuntime::RegIntCall("MonoEngineV2Lib.Input::GetKeyDown", Mono_GetKeyDown);
+	ILRuntime::RegIntCall("MonoEngineV2Lib.Input::GetKeyUp", Mono_GetKeyUp);
+}
+
+bool Input::Mono_GetKey(BYTE* key)
+{
+	return Input::GetCurrent()->GetKey(*key);
+}
+
+bool Input::Mono_GetKeyDown(BYTE* key)
+{
+	return Input::GetCurrent()->GetKeyDown(*key);
+}
+
+bool Input::Mono_GetKeyUp(BYTE* key)
+{
+	return Input::GetCurrent()->GetKeyUp(*key);
 }
 
 Input* Input::s_current;

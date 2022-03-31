@@ -2,6 +2,14 @@
 
 namespace User_Assembly
 {
+    public sealed class TestScript : Script
+    {
+        void Start()
+        {
+            throw new System.Exception("Looool!");
+        }
+    }
+
     public static class Programm
     {
         static StartupData Main()
@@ -10,8 +18,10 @@ namespace User_Assembly
             {
                 (Scene scene) =>
                 {
+                    scene.ClearColor = new ColorF(0.0f, 1.0f, 0.0f);
+
                     GameObject obj = scene.CreateObject("Test");
-                    
+                    obj.AddComponent<TestScript>();
                 }
             }, BufferType.Custom, new Vector2Int(256, 256), CoordinateMode.PixelPerfect);
         }

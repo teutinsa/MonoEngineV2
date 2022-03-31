@@ -2,8 +2,11 @@
 #include "Core.h"
 #include "Vector2f.h"
 
-struct Transform
+class GameObject;
+
+class Transform
 {
+public:
 	/// <summary>
 	/// The position of the transform.
 	/// </summary>
@@ -21,7 +24,22 @@ struct Transform
 	/// </summary>
 	Transform* parent;
 
-	Transform();
+	Transform(GameObject* obj);
+	~Transform();
 
+	/// <summary>
+	/// Registers the internal calls in the managed runtime.
+	/// </summary>
+	static void RegisterIntCalls();
+	/// <summary>
+	/// Gets the managed counter part of this object.
+	/// </summary>
+	/// <returns>A mono pointer to the object.</returns>
+	_Ret_notnull_ MonoObject* GetManaged() const;
 	D2D1_MATRIX_3X2_F GetMatrix() const;
+
+private:
+	MonoObject* m_managed;
+	uint32_t m_handle;
+	GameObject* m_object;
 };

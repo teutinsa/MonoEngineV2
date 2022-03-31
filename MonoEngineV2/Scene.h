@@ -52,6 +52,10 @@ public:
 	/// </summary>
 	ColorF GetClearColor() const;
 	/// <summary>
+	/// Gets the managed counter part of this object.
+	/// </summary>
+	_Ret_notnull_ MonoObject* GetManagedObject() const;
+	/// <summary>
 	/// Registers the internal calls in the managed runtime.
 	/// </summary>
 	static void RegisterIntCalls();
@@ -61,4 +65,14 @@ private:
 	std::vector<GameObject*> m_objects;
 	ColorF m_clearColor;
 	ResourceManager m_resources;
+	MonoObject* m_managed;
+	uint32_t m_handle;
+
+	static MonoString* Mono_get_Name(MonoObject* obj);
+	static ColorF Mono_get_ClearColor(MonoObject* obj);
+	static void Mono_set_ClearColor(MonoObject* obj, ColorF* value);
+	static MonoObject* Mono_get_ResourceManager(MonoObject* obj);
+	static MonoObject* Mono_CreateObject(MonoObject* obj, MonoString* name);
+	static MonoObject* Mono_FindObjectByName(MonoObject* obj, MonoString* name);
+	static void Mono_DestroyObject(MonoObject* obj, MonoObject* object);
 };

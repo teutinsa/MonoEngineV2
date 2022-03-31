@@ -22,9 +22,15 @@ public:
 	/// <param name="name">The name to search for.</param>
 	/// <returns>A pointer to a resource, null if no resource with the given name was found.</returns>
 	_Success_(return != nullptr) _Check_return_ _Ret_maybenull_ Resource* GetResource(_In_ const std::string& name) const;
+	/// <summary>
+	/// Gets the managed counter part of this object.
+	/// </summary>
+	_Ret_notnull_ MonoObject* GetManagedObject() const;
 
 private:
 	std::unordered_map<std::string, Resource*> m_resources;
+	MonoObject* m_managed;
+	uint32_t m_handle;
 
 	/// <summary>
 	/// Adds a resource to the manager.

@@ -2,6 +2,7 @@
 #include "Core.h"
 
 #include "Scene.h"
+#include "ObjectHandle.h"
 
 class SceneManager
 {
@@ -46,6 +47,11 @@ public:
 	/// <param name="scene">The target scene.</param>
 	void SetCurrentScene(_In_ Scene* scene);
 	/// <summary>
+	/// Destroys a given scene.
+	/// </summary>
+	/// <param name="scene">A pointer to the scene to be detroyed.</param>
+	void DestroyScene(_In_ Scene* scene);
+	/// <summary>
 	/// Update
 	/// </summary>
 	void Update();
@@ -53,6 +59,15 @@ public:
 	/// Render
 	/// </summary>
 	void Render();
+	/// <summary>
+	/// Sets the scene definitions of the scene manager.
+	/// </summary>
+	void SetSceneDefs(_In_ const std::vector<ObjectHandle>* sceneDefs);
+	/// <summary>
+	/// Loads a scene from the definitions at a given index.
+	/// </summary>
+	/// <param name="index">The index in the definitions.</param>
+	void LoadScene(_In_ int index);
 	/// <summary>
 	/// Registers the internal calls in the managed runtime.
 	/// </summary>
@@ -62,4 +77,5 @@ private:
 	static SceneManager* s_current;
 	Scene* m_currentScene;
 	std::vector<Scene*> m_scenes;
+	const std::vector<ObjectHandle>* m_sceneDefs;
 };

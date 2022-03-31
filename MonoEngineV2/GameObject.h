@@ -11,7 +11,7 @@ class GameObject
 	friend class Scene;
 
 public:
-	Transform transform;
+	Transform* transform;
 
 	/// <summary>
 	/// Default constructor.
@@ -76,6 +76,10 @@ public:
 		return (std::vector<T*>)GetComponents(Component::MakeHash<T>());
 	}
 	/// <summary>
+	/// Get the managed counter part of this object.
+	/// </summary>
+	_Ret_notnull_ MonoObject* GetManagedObject() const;
+	/// <summary>
 	/// Registers the internal calls in the managed runtime.
 	/// </summary>
 	static void RegisterIntCalls();
@@ -86,6 +90,7 @@ private:
 	uint32_t m_handle;
 	MonoObject* m_managed;
 	std::vector<Component*> m_components;
+	bool m_active;
 	
 	/// <summary>
 	/// Adds a component to the game object.
@@ -104,4 +109,13 @@ private:
 	/// <param name="hash_code">The hash to search for.</param>
 	/// <returns>A std::vector containing pointers to the matching components.</returns>
 	std::vector<Component*> GetComponents(_In_ size_t hash_code) const;
+
+	static MonoString* Mono_get_Name(MonoObject* obj);
+	static void Mono_set_Name(MonoObject* obj, MonoString* value);
+	static bool Mono_get_Active(MonoObject* obj);
+	static void Mono_set_Active(MonoObject* obj, bool value);
+	static MonoObject* Mono_get_Transform(MonoObject* obj);
+	static MonoObject* Mono_GetComponent(MonoObject* obj, MonoReflectionType* type);
+	static MonoObject* Mono_AddComponent(MonoObject* obj, MonoReflectionType* type);
+	static void Mono_RemoveComponent(MonoObject* obj, MonoObject* comp);
 };

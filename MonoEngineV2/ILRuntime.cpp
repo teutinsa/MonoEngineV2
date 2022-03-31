@@ -4,6 +4,8 @@
 ILRuntime::ILRuntime(_In_ const std::string& path, _In_ const std::string& appName)
 	: m_coreLib(nullptr), m_engineLib(nullptr), m_userLib(nullptr)
 {
+	s_current = this;
+
 	mono_set_dirs(path.c_str(), path.c_str());
 	mono_config_parse(nullptr);
 	m_domain = mono_jit_init(appName.c_str());
@@ -127,7 +129,10 @@ MonoException* ILRuntime::Invoke(_In_ MonoDelegate* delegat, _In_opt_ void** arg
 {
 	MonoObject* exc = nullptr;
 
-	(*ret) = mono_runtime_delegate_invoke((MonoObject*)delegat, args, &exc);
+	if(ret == nullptr)
+		mono_runtime_delegate_invoke((MonoObject*)delegat, args, &exc);
+	else
+		(*ret) = mono_runtime_delegate_invoke((MonoObject*)delegat, args, &exc);
 
 	return (MonoException*)exc;
 }
