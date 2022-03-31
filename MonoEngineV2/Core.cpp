@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Core.h"
 
-void DebugOut(const char* szFormat, ...)
+void DebugOut(_Printf_format_string_ const char* szFormat, ...)
 {
     char buffer[1024];
     va_list arg;
@@ -13,4 +13,10 @@ void DebugOut(const char* szFormat, ...)
         return;
 
     OutputDebugStringA(buffer);
+}
+
+void ThrowOnExc(_In_opt_ MonoException* exc)
+{
+    if (exc != nullptr)
+        throw std::runtime_error(mono_string_to_utf8(mono_object_to_string((MonoObject*)exc, nullptr)));
 }

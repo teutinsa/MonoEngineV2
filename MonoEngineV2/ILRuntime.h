@@ -89,7 +89,15 @@ public:
 	/// <param name="args">The arguments.</param>
 	/// <param name="ret">A pointer to a possible return object.</param>
 	/// <returns>A mono pointer to possible managed exception, null if none was thrown.</returns>
-	_Success_(return != nullptr) _Check_return_ MonoObject* Invoke(_In_ MonoMethod* method, _In_opt_ MonoObject* obj, _In_opt_ void** args, _Outptr_opt_result_maybenull_ MonoObject** ret);
+	_Success_(return != nullptr) _Check_return_ MonoException* Invoke(_In_ MonoMethod* method, _In_opt_ MonoObject* obj, _In_opt_ void** args, _Outptr_opt_result_maybenull_ MonoObject** ret);
+	/// <summary>
+	/// Invokes a given delegate, with the provided arguments.
+	/// </summary>
+	/// <param name="delegat">The delegate to invoke.</param>
+	/// <param name="args">The arguments.</param>
+	/// <param name="ret">A pointer to a possible return object.</param>
+	/// <returns>A mono pointer to possible managed exception, null if none was thrown.</returns>
+	_Success_(return != nullptr) _Check_return_ MonoException* Invoke(_In_ MonoDelegate* delegat, _In_opt_ void** args, _Outptr_opt_result_maybenull_ MonoObject** ret);
 
 private:
 	static ILRuntime* s_current;

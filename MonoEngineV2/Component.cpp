@@ -93,39 +93,23 @@ void ScriptComponent::RegisterIntCalls()
 void ScriptComponent::InvokeOnCreate()
 {
 	if (m_onCreateMethod != nullptr)
-	{
-		MonoObject* exc = ILRuntime::GetCurrent()->Invoke(m_onCreateMethod, GetManagedObject(), nullptr, nullptr);
-		if (exc != nullptr)
-			throw std::runtime_error(mono_string_to_utf8(mono_object_to_string(exc, nullptr)));
-	}
+		ThrowOnExc(ILRuntime::GetCurrent()->Invoke(m_onCreateMethod, GetManagedObject(), nullptr, nullptr));
 }
 
 void ScriptComponent::InvokeOnDestroy()
 {
 	if (m_onDestroyMethod != nullptr)
-	{
-		MonoObject* exc = ILRuntime::GetCurrent()->Invoke(m_onDestroyMethod, GetManagedObject(), nullptr, nullptr);
-		if (exc != nullptr)
-			throw std::runtime_error(mono_string_to_utf8(mono_object_to_string(exc, nullptr)));
-	}
+		ThrowOnExc(ILRuntime::GetCurrent()->Invoke(m_onDestroyMethod, GetManagedObject(), nullptr, nullptr));
 }
 
 void ScriptComponent::InvokeOnStart()
 {
 	if (m_onStartMethod != nullptr)
-	{
-		MonoObject* exc = ILRuntime::GetCurrent()->Invoke(m_onStartMethod, GetManagedObject(), nullptr, nullptr);
-		if (exc != nullptr)
-			throw std::runtime_error(mono_string_to_utf8(mono_object_to_string(exc, nullptr)));
-	}
+		ThrowOnExc(ILRuntime::GetCurrent()->Invoke(m_onStartMethod, GetManagedObject(), nullptr, nullptr));
 }
 
 void ScriptComponent::InvokeOnUpdate()
 {
 	if (m_onUpdateMethod != nullptr)
-	{
-		MonoObject* exc = ILRuntime::GetCurrent()->Invoke(m_onUpdateMethod, GetManagedObject(), nullptr, nullptr);
-		if (exc != nullptr)
-			throw std::runtime_error(mono_string_to_utf8(mono_object_to_string(exc, nullptr)));
-	}
+		ThrowOnExc(ILRuntime::GetCurrent()->Invoke(m_onUpdateMethod, GetManagedObject(), nullptr, nullptr));
 }

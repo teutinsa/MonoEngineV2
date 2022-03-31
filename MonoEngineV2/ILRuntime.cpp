@@ -106,7 +106,7 @@ MonoObject* ILRuntime::New(_In_ MonoClass* klass)
 }
 
 _Success_(return != nullptr) _Check_return_
-MonoObject* ILRuntime::Invoke(_In_ MonoMethod* method, _In_opt_ MonoObject* obj, _In_opt_ void** args, _Outptr_opt_result_maybenull_ MonoObject** ret)
+MonoException* ILRuntime::Invoke(_In_ MonoMethod* method, _In_opt_ MonoObject* obj, _In_opt_ void** args, _Outptr_opt_result_maybenull_ MonoObject** ret)
 {
 	MonoObject* exc = nullptr;
 
@@ -119,7 +119,17 @@ MonoObject* ILRuntime::Invoke(_In_ MonoMethod* method, _In_opt_ MonoObject* obj,
 	else
 		(*ret) = mono_runtime_invoke(method, obj, args, &exc);
 
-	return exc;
+	return (MonoException*)exc;
+}
+
+_Success_(return != nullptr) _Check_return_
+MonoException* ILRuntime::Invoke(_In_ MonoDelegate* delegat, _In_opt_ void** args, _Outptr_opt_result_maybenull_ MonoObject** ret)
+{
+	MonoObject* exc = nullptr;
+
+	(*ret) = mono_runtime_delegate_invoke((MonoObject*)delegat, args, &exc);
+
+	return (MonoException*)exc;
 }
 
 ILRuntime* ILRuntime::s_current;

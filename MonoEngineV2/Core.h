@@ -41,3 +41,5 @@ void type::_StaticCtor()
 /// Writes a debug message to the visual studio output.
 /// </summary>
 void DebugOut(_Printf_format_string_ const char* szFormat, ...);
+
+void ThrowOnExc(_In_opt_ MonoException* exc);

@@ -9,6 +9,8 @@ class Sound;
 class Input;
 class SceneManager;
 
+struct StartupInfo;
+
 class Application
 {
 public:
@@ -43,6 +45,7 @@ private:
 	Sound* m_sound;
 	Input* m_input;
 	SceneManager* m_scenes;
+	StartupInfo* m_startupInfo;
 
 	/// <summary>
 	/// Gets the current time in seconds.
@@ -73,6 +76,10 @@ private:
 	/// Registers the internal calls in the managed runtime.
 	/// </summary>
 	void RegisterIntCalls();
+	/// <summary>
+	/// Parse the startup info, provided by the user.
+	/// </summary>
+	void ParseStartupData(_In_ MonoMethod* mth);
 
 	//Internal calls
 	static void IntCall_Quit();

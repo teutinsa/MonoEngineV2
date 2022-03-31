@@ -8,6 +8,17 @@
 #include "Sound.h"
 #include "Input.h"
 #include "SceneManager.h"
+#include "ObjectHandle.h"
+
+struct StartupInfo
+{
+	int startSceneIndex;
+	std::string appName;
+	BufferType bufferType;
+	CoordinateMode coordinateMode;
+	Vector2Int customBufferSize;
+	std::vector<ObjectHandle> sceneDefinitions;
+};
 
 Application::Application()
 	: m_runtime(nullptr), m_settigs(nullptr), m_wnd(nullptr), m_renderer(nullptr), m_scenes(nullptr)
@@ -20,6 +31,7 @@ Application::~Application()
 {
 	Shut();
 
+	T_FREE(m_startupInfo);
 	T_FREE(m_msg);
 }
 
@@ -122,6 +134,8 @@ void Application::Init()
 
 	RegisterIntCalls();
 
+	ParseStartupData(mth);
+
 	m_initialized = true;
 }
 
@@ -156,11 +170,77 @@ void Application::Render()
 void Application::RegisterIntCalls()
 {
 	ILRuntime::RegIntCall("MonoEngineV2Lib.Application::Quit", IntCall_Quit);
+
+	SceneManager::RegisterIntCalls();
+}
+
+void Application::ParseStartupData(_In_ MonoMethod* mth)
+{
+	MonoObject* startupDataObj;
+	ThrowOnExc(m_runtime->Invoke(mth, nullptr, nullptr, &startupDataObj)); //Call entry point
+
+	static MonoClass* startupDataCl;
+	if (startupDataCl == nullptr)
+		startupDataCl = m_runtime->GetLibClasByName("MonoEngineV2Lib", "StartupData");
+	static MonoMethod* startSceneIndexGetMeth;
+	if (startSceneIndexGetMeth == nullptr)
+		startSceneIndexGetMeth = mono_property_get_get_method(mono_class_get_property_from_name(startupDataCl, "StartSceneIndex"));
+	static MonoMethod* appNameGetMeth;
+	if (appNameGetMeth == nullptr)
+		appNameGetMeth = mono_property_get_get_method(mono_class_get_property_from_name(startupDataCl, "ApplicationName"));
+	static MonoMethod* bufTypeGetMeth;
+	if (bufTypeGetMeth == nullptr)
+		bufTypeGetMeth = mono_property_get_get_method(mono_class_get_property_from_name(startupDataCl, "BufferType"));
+	static MonoMethod* coordModeGetMeth;
+	if (coordModeGetMeth == nullptr)
+		coordModeGetMeth = mono_property_get_get_method(mono_class_get_property_from_name(startupDataCl, "CoordinateMode"));
+	static MonoMethod* custBufSizGetMeth;
+	if (custBufSizGetMeth == nullptr)
+		custBufSizGetMeth = mono_property_get_get_method(mono_class_get_property_from_name(startupDataCl, "CustomBufferSize"));
+	static MonoClassField* sceneDefFld;
+	if (sceneDefFld == nullptr)
+		sceneDefFld = mono_class_get_field_from_name(startupDataCl, "m_sceneDefinitions");
+
+	m_startupInfo = T_CALLOC(StartupInfo);
+
+	MonoObject* startSceneIndexObj;
+	ThrowOnExc(m_runtime->Invoke(startSceneIndexGetMeth, startupDataObj, nullptr, &startSceneIndexObj));
+	m_startupInfo->startSceneIndex = *(int*)mono_object_unbox(startSceneIndexObj);
+	
+	MonoString* appNameStr;
+	ThrowOnExc(m_runtime->Invoke(appNameGetMeth, startupDataObj, nullptr, (MonoObject**)&appNameStr));
+	m_startupInfo->appName = std::string(mono_string_to_utf8(appNameStr));
+	
+	MonoObject* bufTypeObj;
+	ThrowOnExc(m_runtime->Invoke(bufTypeGetMeth, startupDataObj, nullptr, &bufTypeObj));
+	m_startupInfo->bufferType = *(BufferType*)mono_object_unbox(bufTypeObj);
+	
+	MonoObject* coordModeObj;
+	ThrowOnExc(m_runtime->Invoke(coordModeGetMeth, startupDataObj, nullptr, &coordModeObj));
+	m_startupInfo->coordinateMode = *(CoordinateMode*)mono_object_unbox(coordModeObj);
+
+	MonoObject* custBufSizeObj;
+	ThrowOnExc(m_runtime->Invoke(custBufSizGetMeth, startupDataObj, nullptr, &custBufSizeObj));
+	m_startupInfo->customBufferSize = *(Vector2Int*)mono_object_unbox(custBufSizeObj);
+
+	MonoArray* sceneDefArr;
+	mono_field_get_value(startupDataObj, sceneDefFld, &sceneDefArr);
+	uintptr_t sceneDefLen = mono_array_length(sceneDefArr);
+	m_startupInfo->sceneDefinitions = std::vector<ObjectHandle>();
+	for (size_t i = 0; i < sceneDefLen; i++)
+	{
+		MonoDelegate* sceneDefDel = mono_array_get(sceneDefArr, MonoDelegate*, i);
+		m_startupInfo->sceneDefinitions.push_back(ObjectHandle((MonoObject*)sceneDefDel));
+	}
+
+	//apply startup info
+	m_wnd->SetText(m_startupInfo->appName.c_str());
+	m_renderer->SetCoordinateMode(m_startupInfo->coordinateMode);
+	m_renderer->SetBufferType(m_startupInfo->bufferType);
+	m_renderer->SetPixelSize(m_startupInfo->customBufferSize);
 }
 
 void Application::IntCall_Quit()
 {
 	Application::GetCurrent()->Quit();
-
-	SceneManager::RegisterIntCalls();
 }

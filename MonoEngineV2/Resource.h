@@ -5,7 +5,8 @@ enum class ResourceType
 {
 	Unknown,
 	Image2D,
-	Brush2D
+	Brush2D,
+	Sound,
 };
 
 class Resource abstract

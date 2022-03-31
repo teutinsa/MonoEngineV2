@@ -81,6 +81,9 @@
     <ClCompile Include="Input.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectHandle.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -144,6 +147,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Input.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectHandle.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

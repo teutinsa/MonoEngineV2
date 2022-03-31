@@ -66,8 +66,36 @@ ResourceType ImageResource::GetType() const
 	return ResourceType::Image2D;
 }
 
+ResourceType BrushResource::GetType() const
+{
+	return ResourceType::Brush2D;
+}
+
+SolidColorBrushResource::SolidColorBrushResource(_In_ ColorF color)
+	: m_brush(nullptr), BrushResource(ILRuntime::GetCurrent()->GetLibClasByName("MonoEngineV2Lib", "SolidColorBrush"))
+{
+	if (Renderer::GetCurrent()->GetRenderType() != RenderType::D2D)
+		throw std::runtime_error("Can't load a 2d resource if the render type is not set to 2d!");
+
+	Renderer2D* r = (Renderer2D*)Renderer::GetCurrent();
+
+	r->GetTarget()->CreateSolidColorBrush(color, &m_brush);
+}
+
+SolidColorBrushResource::~SolidColorBrushResource()
+{
+	SafeRelease(m_brush);
+	Resource::~Resource();
+}
+
+ID2D1Brush* SolidColorBrushResource::GetBrush() const
+{
+	return m_brush;
+}
+
 void ResourceLoader2D::RegisterIntCalls()
 {
+
 }
 
 _Success_(return != nullptr) _Check_return_
@@ -85,3 +113,7 @@ ImageResource* ResourceLoader2D::LoadImageResource(_In_ ResourceManager* manager
 	manager->AddResource(name, img);
 	return img;
 }
+
+BrushResource::BrushResource(_In_ MonoClass* klass)
+	: Resource(klass)
+{ }
