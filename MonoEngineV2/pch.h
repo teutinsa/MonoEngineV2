@@ -17,8 +17,8 @@
 #include <unordered_map>
 
 #define WIN32_LEAN_AND_MEAN
-#define NODRAWTEXT
 #define NOGDI
+#define NODRAWTEXT
 #define NOMINMAX
 #include <Windows.h>
 
@@ -36,5 +36,4 @@
 #include <mono/metadata/mono-gc.h>
 #include <mono/metadata/mono-debug.h>
 #include <mono/metadata/debug-helpers.h>
-#include <mono/metadata/debug-mono-symfile.h>
 #include <mono/metadata/exception.h>

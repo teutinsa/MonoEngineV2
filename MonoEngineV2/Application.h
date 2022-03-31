@@ -5,6 +5,8 @@ class ILRuntime;
 class Settings;
 class Window;
 class Renderer;
+class Sound;
+class Input;
 class SceneManager;
 
 class Application
@@ -38,6 +40,8 @@ private:
 	Settings* m_settigs;
 	Window* m_wnd;
 	Renderer* m_renderer;
+	Sound* m_sound;
+	Input* m_input;
 	SceneManager* m_scenes;
 
 	/// <summary>

@@ -75,6 +75,12 @@
     <ClCompile Include="ResourceLoader2D.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -132,6 +138,12 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="ResourceLoader2D.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

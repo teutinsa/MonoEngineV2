@@ -85,7 +85,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Program Files\Mono\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>d2d1.lib;dwrite.lib;dsound.lib;mono-2.0-sgen.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dxguid.lib;winmm.lib;d2d1.lib;dwrite.lib;dsound.lib;mono-2.0-sgen.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "C:\Program Files\Mono\lib\mono\4.5\*" "$(SolutionDir)$(Platform)\$(Configuration)\mono\4.5\" /y /i /s
@@ -111,7 +111,7 @@ xcopy "C:\Program Files\Mono\bin\mono-2.0-sgen.dll" "$(SolutionDir)$(Platform)\$
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Program Files\Mono\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>d2d1.lib;dwrite.lib;dsound.lib;mono-2.0-sgen.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dxguid.lib;winmm.lib;d2d1.lib;dwrite.lib;dsound.lib;mono-2.0-sgen.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "C:\Program Files\Mono\lib\mono\4.5\*" "$(SolutionDir)$(Platform)\$(Configuration)\mono\4.5\" /y /i /s
@@ -133,7 +133,7 @@ xcopy "C:\Program Files\Mono\bin\mono-2.0-sgen.dll" "$(SolutionDir)$(Platform)\$
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Program Files\Mono\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>d2d1.lib;dwrite.lib;dsound.lib;mono-2.0-sgen.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dxguid.lib;winmm.lib;d2d1.lib;dwrite.lib;dsound.lib;mono-2.0-sgen.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "C:\Program Files\Mono\lib\mono\4.5\*" "$(SolutionDir)$(Platform)\$(Configuration)\mono\4.5\" /y /i /s
@@ -159,7 +159,7 @@ xcopy "C:\Program Files\Mono\bin\mono-2.0-sgen.dll" "$(SolutionDir)$(Platform)\$
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Program Files\Mono\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>d2d1.lib;dwrite.lib;dsound.lib;mono-2.0-sgen.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dxguid.lib;winmm.lib;d2d1.lib;dwrite.lib;dsound.lib;mono-2.0-sgen.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "C:\Program Files\Mono\lib\mono\4.5\*" "$(SolutionDir)$(Platform)\$(Configuration)\mono\4.5\" /y /i /s
@@ -173,6 +173,7 @@ xcopy "C:\Program Files\Mono\bin\mono-2.0-sgen.dll" "$(SolutionDir)$(Platform)\$
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="ILRuntime.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -188,6 +189,7 @@ xcopy "C:\Program Files\Mono\bin\mono-2.0-sgen.dll" "$(SolutionDir)$(Platform)\$
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Settings.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Vector2f.cpp" />
     <ClCompile Include="Vector2Int.cpp" />
@@ -200,6 +202,7 @@ xcopy "C:\Program Files\Mono\bin\mono-2.0-sgen.dll" "$(SolutionDir)$(Platform)\$
     <ClInclude Include="Core.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ILRuntime.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Renderer2D.h" />
@@ -209,6 +212,7 @@ xcopy "C:\Program Files\Mono\bin\mono-2.0-sgen.dll" "$(SolutionDir)$(Platform)\$
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Settings.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Vector2f.h" />
     <ClInclude Include="Vector2Int.h" />

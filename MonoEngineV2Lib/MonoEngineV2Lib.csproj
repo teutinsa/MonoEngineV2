@@ -40,6 +40,8 @@
     <Compile Include="EngineObject.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Image.cs" />
+    <Compile Include="Input.cs" />
+    <Compile Include="KeyCode.cs" />
     <Compile Include="NotContructibleException.cs" />
     <Compile Include="Object.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -5,6 +5,8 @@
 #include "Settings.h"
 #include "Window.h"
 #include "Renderer2D.h"
+#include "Sound.h"
+#include "Input.h"
 #include "SceneManager.h"
 
 Application::Application()
@@ -57,6 +59,8 @@ void Application::Run()
 
 		DoEvents();
 		
+		m_input->Update();
+
 		Update();
 		Render();
 
@@ -105,6 +109,10 @@ void Application::Init()
 	m_wnd->Show();
 
 	m_renderer = new Renderer2D(m_wnd);
+
+	m_sound = new Sound(m_wnd);
+
+	m_input = new Input();
 
 	m_scenes = new SceneManager();
 
