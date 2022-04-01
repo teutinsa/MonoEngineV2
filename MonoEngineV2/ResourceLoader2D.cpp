@@ -55,7 +55,7 @@ ImageResource::~ImageResource()
 	Resource::~Resource();
 }
 
-_Success_(return != nullptr) _Check_return_ _Ret_notnull_
+_Ret_notnull_
 ID2D1Bitmap* ImageResource::GetBitmap() const
 {
 	return m_bmp;

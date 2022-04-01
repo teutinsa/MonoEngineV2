@@ -19,6 +19,8 @@ class ImageRenderer : public Component
 public:
 	ImageResource* image;
 	Vector2f size;
+	bool interpolate;
+	float opacity;
 
 	ImageRenderer();
 	~ImageRenderer() override;
@@ -29,6 +31,16 @@ public:
 	static void RegisterIntCalls();
 	virtual size_t GetHash() const;
 	void Render() override;
+
+private:
+	MonoObject* Mono_get_Image(MonoObject* obj);
+	void Mono_set_Image(MonoObject* obj, MonoObject* value);
+	Vector2f Mono_get_Size(MonoObject* obj);
+	void Mono_set_Size(MonoObject* obj, Vector2f value);
+	bool Mono_get_Interpolate(MonoObject* obj);
+	void Mono_set_Interpolate(MonoObject* obj, bool value);
+	float Mono_get_Opacity(MonoObject* obj);
+	void Mono_set_Opacity(MonoObject* obj, float value);
 };
 
 enum class ShapeType

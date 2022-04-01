@@ -13,7 +13,7 @@ public:
 	/// <summary>
 	/// Gets the bitmap of this image resource.
 	/// </summary>
-	_Success_(return != nullptr) _Check_return_ _Ret_notnull_ ID2D1Bitmap* GetBitmap() const;
+	_Ret_notnull_ ID2D1Bitmap* GetBitmap() const;
 	ResourceType GetType() const;
 
 private:

@@ -21,6 +21,7 @@ namespace User_Assembly
                 {
                     SolidColorBrush brush = ResourceLoader2D.LoadSolidColorBrush(scene.ResourceManager, "redBrush", new ColorF(1.0f, 0.0f, 0.0f));
 
+
                     scene.ClearColor = new ColorF(0.0f, 1.0f, 0.0f);
 
                     GameObject obj = scene.CreateObject("Test");

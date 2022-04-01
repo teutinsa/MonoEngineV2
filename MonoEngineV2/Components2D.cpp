@@ -31,6 +31,115 @@ size_t ImageRenderer::GetHash() const
 
 void ImageRenderer::Render()
 {
+	if (image == nullptr)
+		return;
+
+	Renderer2D* r = (Renderer2D*)Renderer::GetCurrent();
+	ID2D1RenderTarget* t = r->GetTarget();
+
+	D2D1_RECT_F rect = D2D1::RectF(-size.x / 2, -size.y / 2, size.x, size.y);
+	D2D1_SIZE_U sz = image->GetBitmap()->GetPixelSize();
+
+	t->DrawBitmap(image->GetBitmap(), rect, opacity, interpolate ? D2D1_BITMAP_INTERPOLATION_MODE_LINEAR : D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR, D2D1::RectF(0, 0, sz.width, sz.height));
+}
+
+MonoObject* ImageRenderer::Mono_get_Image(MonoObject* obj)
+{
+	static MonoClassField* nativeFld;
+	if (nativeFld == nullptr)
+		nativeFld = mono_class_get_field_from_name(ILRuntime::GetCurrent()->GetLibClasByName("MonoEngineV2Lib", "Object"), "m_native");
+
+	ImageRenderer* r;
+	mono_field_get_value(obj, nativeFld, &r);
+
+	return r->image->GetManagedObject();
+}
+
+void ImageRenderer::Mono_set_Image(MonoObject* obj, MonoObject* value)
+{
+	static MonoClassField* nativeFld;
+	if (nativeFld == nullptr)
+		nativeFld = mono_class_get_field_from_name(ILRuntime::GetCurrent()->GetLibClasByName("MonoEngineV2Lib", "Object"), "m_native");
+
+	ImageRenderer* r;
+	mono_field_get_value(obj, nativeFld, &r);
+	
+	ImageResource* img;
+	mono_field_get_value(value, nativeFld, &img);
+
+	r->image = img;
+}
+
+Vector2f ImageRenderer::Mono_get_Size(MonoObject* obj)
+{
+	static MonoClassField* nativeFld;
+	if (nativeFld == nullptr)
+		nativeFld = mono_class_get_field_from_name(ILRuntime::GetCurrent()->GetLibClasByName("MonoEngineV2Lib", "Object"), "m_native");
+
+	ImageRenderer* r;
+	mono_field_get_value(obj, nativeFld, &r);
+
+	return r->size;
+}
+
+void ImageRenderer::Mono_set_Size(MonoObject* obj, Vector2f value)
+{
+	static MonoClassField* nativeFld;
+	if (nativeFld == nullptr)
+		nativeFld = mono_class_get_field_from_name(ILRuntime::GetCurrent()->GetLibClasByName("MonoEngineV2Lib", "Object"), "m_native");
+
+	ImageRenderer* r;
+	mono_field_get_value(obj, nativeFld, &r);
+
+	r->size = value;
+}
+
+bool ImageRenderer::Mono_get_Interpolate(MonoObject* obj)
+{
+	static MonoClassField* nativeFld;
+	if (nativeFld == nullptr)
+		nativeFld = mono_class_get_field_from_name(ILRuntime::GetCurrent()->GetLibClasByName("MonoEngineV2Lib", "Object"), "m_native");
+
+	ImageRenderer* r;
+	mono_field_get_value(obj, nativeFld, &r);
+
+	return r->interpolate;
+}
+
+void ImageRenderer::Mono_set_Interpolate(MonoObject* obj, bool value)
+{
+	static MonoClassField* nativeFld;
+	if (nativeFld == nullptr)
+		nativeFld = mono_class_get_field_from_name(ILRuntime::GetCurrent()->GetLibClasByName("MonoEngineV2Lib", "Object"), "m_native");
+
+	ImageRenderer* r;
+	mono_field_get_value(obj, nativeFld, &r);
+
+	r->interpolate = value;
+}
+
+float ImageRenderer::Mono_get_Opacity(MonoObject* obj)
+{
+	static MonoClassField* nativeFld;
+	if (nativeFld == nullptr)
+		nativeFld = mono_class_get_field_from_name(ILRuntime::GetCurrent()->GetLibClasByName("MonoEngineV2Lib", "Object"), "m_native");
+
+	ImageRenderer* r;
+	mono_field_get_value(obj, nativeFld, &r);
+
+	return r->opacity;
+}
+
+void ImageRenderer::Mono_set_Opacity(MonoObject* obj, float value)
+{
+	static MonoClassField* nativeFld;
+	if (nativeFld == nullptr)
+		nativeFld = mono_class_get_field_from_name(ILRuntime::GetCurrent()->GetLibClasByName("MonoEngineV2Lib", "Object"), "m_native");
+
+	ImageRenderer* r;
+	mono_field_get_value(obj, nativeFld, &r);
+
+	r->opacity = value;
 }
 
 ShapeRenderer::ShapeRenderer()

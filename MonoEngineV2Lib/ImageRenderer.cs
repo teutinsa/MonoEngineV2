@@ -19,5 +19,13 @@ namespace MonoEngineV2Lib
             [MethodImpl(MethodImplOptions.InternalCall)]
             set;
         }
+
+        public extern bool Interpolate
+        {
+            [MethodImpl(MethodImplOptions.InternalCall)]
+            get;
+            [MethodImpl(MethodImplOptions.InternalCall)]
+            set;
+        }
     }
 }
