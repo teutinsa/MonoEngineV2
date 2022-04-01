@@ -66,6 +66,10 @@ ResourceType ImageResource::GetType() const
 	return ResourceType::Image2D;
 }
 
+BrushResource::BrushResource(_In_ MonoClass* klass)
+	: Resource(klass)
+{ }
+
 ResourceType BrushResource::GetType() const
 {
 	return ResourceType::Brush2D;
@@ -88,6 +92,7 @@ SolidColorBrushResource::~SolidColorBrushResource()
 	Resource::~Resource();
 }
 
+_Ret_notnull_
 ID2D1Brush* SolidColorBrushResource::GetBrush() const
 {
 	return m_brush;
@@ -95,7 +100,9 @@ ID2D1Brush* SolidColorBrushResource::GetBrush() const
 
 void ResourceLoader2D::RegisterIntCalls()
 {
-
+	ILRuntime::RegIntCall("MonoEngineV2Lib.ResourceLoader2D::LoadImage(MonoEngineV2Lib.ResourceManager,string,string)", Mono_LoadImage_filename);
+	ILRuntime::RegIntCall("MonoEngineV2Lib.ResourceLoader2D::LoadImage(MonoEngineV2Lib.ResourceManager,string,byte[])", Mono_LoadImage_data);
+	ILRuntime::RegIntCall("MonoEngineV2Lib.ResourceLoader2D::LoadSolidColorBrush", Mono_LoadSolidColorBrush);
 }
 
 _Success_(return != nullptr) _Check_return_
@@ -114,6 +121,61 @@ ImageResource* ResourceLoader2D::LoadImageResource(_In_ ResourceManager* manager
 	return img;
 }
 
-BrushResource::BrushResource(_In_ MonoClass* klass)
-	: Resource(klass)
-{ }
+_Success_(return != nullptr) _Check_return_
+SolidColorBrushResource* ResourceLoader2D::LoadSolidColorBrushResource(_In_ ResourceManager* manager, _In_ const std::string& name, _In_ const ColorF& color)
+{
+	SolidColorBrushResource* brush = new SolidColorBrushResource(color);
+	manager->AddResource(name, brush);
+	return brush;
+}
+
+MonoObject* ResourceLoader2D::Mono_LoadImage_filename(MonoObject* manager, MonoString* name, MonoString* filename)
+{
+	static MonoClassField* nativeFld;
+	if (nativeFld == nullptr)
+		nativeFld = mono_class_get_field_from_name(ILRuntime::GetCurrent()->GetLibClasByName("MonoEngineV2Lib", "Object"), "m_native");
+
+	ResourceManager* m;
+	mono_field_get_value(manager, nativeFld, &m);
+
+	ImageResource* rsc = ResourceLoader2D::LoadImageResource(m, mono_string_to_utf8(name), mono_string_to_utf16(filename));
+	return rsc->GetManagedObject();
+}
+
+MonoObject* ResourceLoader2D::Mono_LoadImage_data(MonoObject* manager, MonoString* name, MonoArray* data)
+{
+	static MonoClassField* nativeFld;
+	if (nativeFld == nullptr)
+		nativeFld = mono_class_get_field_from_name(ILRuntime::GetCurrent()->GetLibClasByName("MonoEngineV2Lib", "Object"), "m_native");
+
+	ResourceManager* m;
+	mono_field_get_value(manager, nativeFld, &m);
+
+	size_t length = mono_array_length(data);
+	mono_byte* buffer = (mono_byte*)std::malloc(length);
+
+	if (buffer == nullptr)
+		return nullptr;
+
+	for (size_t i = 0; i < length; i++)
+		buffer[i] = mono_array_get(data, mono_byte, i);
+	
+	ImageResource* rsc = ResourceLoader2D::LoadImageResource(m, mono_string_to_utf8(name), buffer, length);
+
+	std::free(buffer);
+
+	return rsc->GetManagedObject();
+}
+
+MonoObject* ResourceLoader2D::Mono_LoadSolidColorBrush(MonoObject* manager, MonoString* name, ColorF color)
+{
+	static MonoClassField* nativeFld;
+	if (nativeFld == nullptr)
+		nativeFld = mono_class_get_field_from_name(ILRuntime::GetCurrent()->GetLibClasByName("MonoEngineV2Lib", "Object"), "m_native");
+
+	ResourceManager* m;
+	mono_field_get_value(manager, nativeFld, &m);
+
+	SolidColorBrushResource* rsc = ResourceLoader2D::LoadSolidColorBrushResource(m, mono_string_to_utf8(name), color);
+	return rsc->GetManagedObject();
+}

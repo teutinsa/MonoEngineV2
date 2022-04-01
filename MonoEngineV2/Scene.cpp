@@ -39,7 +39,8 @@ std::string Scene::GetName() const
 void Scene::Update()
 {
 	for (GameObject* obj : m_objects)
-		obj->Update();
+		if(obj->GetActive())
+			obj->Update();
 }
 
 void Scene::Render()
@@ -49,7 +50,8 @@ void Scene::Render()
 		reinterpret_cast<Renderer2D*>(r)->GetTarget()->Clear(m_clearColor);
 
 	for (GameObject* obj : m_objects)
-		obj->Render();
+		if(obj->GetActive())
+			obj->Render();
 }
 
 _Success_(return != nullptr) _Check_return_

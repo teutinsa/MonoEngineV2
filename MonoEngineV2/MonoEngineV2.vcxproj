@@ -170,6 +170,7 @@ xcopy "C:\Program Files\Mono\bin\mono-2.0-sgen.dll" "$(SolutionDir)$(Platform)\$
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="ColorF.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="Components2D.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="ILRuntime.cpp" />
@@ -200,6 +201,7 @@ xcopy "C:\Program Files\Mono\bin\mono-2.0-sgen.dll" "$(SolutionDir)$(Platform)\$
     <ClInclude Include="Application.h" />
     <ClInclude Include="ColorF.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="Components2D.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ILRuntime.h" />

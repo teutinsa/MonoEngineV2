@@ -42,6 +42,7 @@
     <Compile Include="EngineObject.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Image.cs" />
+    <Compile Include="ImageRenderer.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="KeyCode.cs" />
     <Compile Include="NotContructibleException.cs" />
@@ -53,6 +54,8 @@
     <Compile Include="Scene.cs" />
     <Compile Include="SceneManager.cs" />
     <Compile Include="Script.cs" />
+    <Compile Include="ShapeRenderer.cs" />
+    <Compile Include="ShapeType.cs" />
     <Compile Include="SolidColorBrush.cs" />
     <Compile Include="StartupData.cs" />
     <Compile Include="Transform.cs" />

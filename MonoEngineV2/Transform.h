@@ -42,4 +42,13 @@ private:
 	MonoObject* m_managed;
 	uint32_t m_handle;
 	GameObject* m_object;
+
+	static Vector2f Mono_get_Position(MonoObject* obj);
+	static void Mono_set_Position(MonoObject* obj, Vector2f value);
+	static float Mono_get_Rotation(MonoObject* obj);
+	static void Mono_set_Rotation(MonoObject* obj, float value);
+	static Vector2f Mono_get_Scale(MonoObject* obj);
+	static void Mono_set_Scale(MonoObject* obj, Vector2f value);
+	static MonoObject* Mono_get_Parent(MonoObject* obj);
+	static void Mono_set_Parent(MonoObject* obj, MonoObject* value);
 };

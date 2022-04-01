@@ -84,6 +84,9 @@
     <ClCompile Include="ObjectHandle.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Components2D.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -150,6 +153,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="ObjectHandle.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Components2D.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

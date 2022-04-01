@@ -5,12 +5,12 @@ namespace MonoEngineV2Lib
     public static class ResourceLoader2D
     {
         [MethodImpl(MethodImplOptions.InternalCall)]
-        public static extern Image LoadImage(string name, string filename);
+        public static extern Image LoadImage(ResourceManager manager, string name, string filename);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
-        public static extern Image LoadImage(string name, byte[] data);
+        public static extern Image LoadImage(ResourceManager manager, string name, byte[] data);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
-        public static extern SolidColorBrush LoadSolidColorBrush(string name, ColorF color);
+        public static extern SolidColorBrush LoadSolidColorBrush(ResourceManager manager, string name, ColorF color);
     }
 }

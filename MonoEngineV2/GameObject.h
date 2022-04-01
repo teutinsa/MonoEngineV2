@@ -80,6 +80,14 @@ public:
 	/// </summary>
 	_Ret_notnull_ MonoObject* GetManagedObject() const;
 	/// <summary>
+	/// Gets the active state of this game object.
+	/// </summary>
+	bool GetActive() const;
+	/// <summary>
+	/// Sets the active state of this game object.
+	/// </summary>
+	void SetActive(bool value);
+	/// <summary>
 	/// Registers the internal calls in the managed runtime.
 	/// </summary>
 	static void RegisterIntCalls();

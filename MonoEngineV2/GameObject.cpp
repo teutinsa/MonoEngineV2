@@ -2,6 +2,7 @@
 #include "GameObject.h"
 
 #include "ILRuntime.h"
+#include "Components2D.h"
 
 GameObject::GameObject(_In_ const std::string& name)
 	: m_name(name), m_scene(nullptr), m_active(true)
@@ -67,9 +68,20 @@ void GameObject::RemoveComonent(_In_opt_ const Component* comp)
 		}
 }
 
+_Ret_notnull_
 MonoObject* GameObject::GetManagedObject() const
 {
 	return m_managed;
+}
+
+bool GameObject::GetActive() const
+{
+	return m_active;
+}
+
+void GameObject::SetActive(bool value)
+{
+	m_active = value;
 }
 
 void GameObject::RegisterIntCalls()
@@ -77,6 +89,7 @@ void GameObject::RegisterIntCalls()
 	ILRuntime::RegIntCall("MonoEngineV2Lib.GameObject::GetComponent", Mono_GetComponent);
 	ILRuntime::RegIntCall("MonoEngineV2Lib.GameObject::AddComponent", Mono_AddComponent);
 	ILRuntime::RegIntCall("MonoEngineV2Lib.GameObject::RemoveComponent", Mono_RemoveComponent);
+	ILRuntime::RegIntCall("MonoEngineV2Lib.GameObject::get_Transform", Mono_get_Transform);
 
 	Transform::RegisterIntCalls();
 	Component::RegisterIntCalls();
@@ -214,18 +227,43 @@ MonoObject* GameObject::Mono_AddComponent(MonoObject* obj, MonoReflectionType* t
 	if(scriptCl == nullptr)
 		scriptCl = ILRuntime::GetCurrent()->GetLibClasByName("MonoEngineV2Lib", "Script");
 
-	switch ((int)typeCl)
+	static MonoClass* imageRendererCl;
+	static uint32_t imageRendererTok;
+	if (imageRendererCl == nullptr)
 	{
-	default:
+		imageRendererCl = ILRuntime::GetCurrent()->GetLibClasByName("MonoEngineV2Lib", "ImageRenderer");
+		imageRendererTok = mono_class_get_type_token(imageRendererCl);
+	}
+
+	static MonoClass* shapeRendererCl;
+	static uint32_t shapeRendererTok;
+	if (shapeRendererCl == nullptr)
+	{
+		shapeRendererCl = ILRuntime::GetCurrent()->GetLibClasByName("MonoEngineV2Lib", "ShapeRenderer");
+		shapeRendererTok = mono_class_get_type_token(shapeRendererCl);
+	}
+
+	Component* comp = nullptr;
+
+	uint32_t typeTok = mono_class_get_type_token(typeCl);
+	if (typeTok == imageRendererTok)
+	{
+		comp = new ImageRenderer();
+	}
+	else if (typeTok == shapeRendererTok)
+	{
+		comp = new ShapeRenderer();
+	}
+	else
 	{
 		if (mono_class_get_parent(typeCl) == scriptCl)
-		{
-			ScriptComponent* comp = new ScriptComponent(typeCl);
-			go->AddComponent(comp);
-			compObj = comp->GetManagedObject();
-		}
-		break;
+			comp = new ScriptComponent(typeCl);
 	}
+
+	if (comp != nullptr)
+	{
+		go->AddComponent(comp);
+		compObj = comp->GetManagedObject();
 	}
 
 	return compObj;

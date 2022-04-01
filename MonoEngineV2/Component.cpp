@@ -2,6 +2,7 @@
 #include "Component.h"
 
 #include "ILRuntime.h"
+#include "Components2D.h"
 
 Component::Component(_In_ MonoClass* klass)
 	: m_gameObject(nullptr)
@@ -36,6 +37,7 @@ void Component::Render()
 void Component::RegisterIntCalls()
 {
 	ScriptComponent::RegisterIntCalls();
+	Components2D::RegisterIntCalls();
 }
 
 _Ret_notnull_
