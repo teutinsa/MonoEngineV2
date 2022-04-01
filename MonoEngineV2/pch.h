@@ -22,6 +22,7 @@
 #define NOMINMAX
 #include <Windows.h>
 
+#include <comdef.h>
 #include <atlbase.h>
 #include <mmeapi.h>
 #include <wincodec.h>

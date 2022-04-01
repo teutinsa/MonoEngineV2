@@ -49,9 +49,20 @@ void Scene::Render()
 	if (r->GetRenderType() == RenderType::D2D)
 		reinterpret_cast<Renderer2D*>(r)->GetTarget()->Clear(m_clearColor);
 
+	ID2D1RenderTarget* t = ((Renderer2D*)r->GetCurrent())->GetTarget();
+	
 	for (GameObject* obj : m_objects)
-		if(obj->GetActive())
+		if (obj->GetActive())
+		{
+			D2D1_MATRIX_3X2_F m;
+			t->GetTransform(&m);
+			t->SetTransform(m * obj->transform->GetMatrix());
+			
+			obj->transform->GetMatrix();
 			obj->Render();
+
+			t->SetTransform(m);
+		}
 }
 
 _Success_(return != nullptr) _Check_return_

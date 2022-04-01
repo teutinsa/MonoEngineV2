@@ -27,5 +27,13 @@ namespace MonoEngineV2Lib
             [MethodImpl(MethodImplOptions.InternalCall)]
             set;
         }
+
+        public extern float Opacity
+        {
+            [MethodImpl(MethodImplOptions.InternalCall)]
+            get;
+            [MethodImpl(MethodImplOptions.InternalCall)]
+            set;
+        }
     }
 }

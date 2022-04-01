@@ -11,16 +11,24 @@ ImageResource::ImageResource(_In_ const std::wstring& filename)
 		throw std::runtime_error("Can't load a 2d resource if the render type is not set to 2d!");
 
 	Renderer2D* r = (Renderer2D*)Renderer::GetCurrent();
-
 	IWICBitmapDecoder* decoder = nullptr;
-	ThrowOnFail(r->GetImageFactroy()->CreateDecoderFromFilename(filename.c_str(), nullptr, GENERIC_READ, WICDecodeMetadataCacheOnLoad, &decoder), "Decoder creation failed!");
+	ThrowOnFail(r->GetImageFactroy()->CreateDecoderFromFilename(filename.c_str(), nullptr, GENERIC_READ, WICDecodeMetadataCacheOnDemand, &decoder), "Decoder creation failed!");
 
+	IWICFormatConverter* converter = nullptr;
+	ThrowOnFail(r->GetImageFactroy()->CreateFormatConverter(&converter), "Converter creation failed!");
+
+	UINT count;
+	ThrowOnFail(decoder->GetFrameCount(&count), "Frame counting failed!");
+	
 	IWICBitmapFrameDecode* frame = nullptr;
 	ThrowOnFail(decoder->GetFrame(0, &frame), "Fetching of bitmap frame failed!");
-
-	ThrowOnFail(r->GetTarget()->CreateBitmapFromWicBitmap(frame, &m_bmp), "Bitmap creation failed!");
+	
+	ThrowOnFail(converter->Initialize(frame, GUID_WICPixelFormat32bppPRGBA, WICBitmapDitherTypeNone, nullptr, 0, WICBitmapPaletteTypeCustom), "Converter creation failed!");
+	
+	ThrowOnFail(r->GetTarget()->CreateBitmapFromWicBitmap(converter, &m_bmp), "Bitmap creation failed!");
 
 	SafeRelease(frame);
+	SafeRelease(converter);
 	SafeRelease(decoder);
 }
 
@@ -37,7 +45,13 @@ ImageResource::ImageResource(_In_reads_bytes_(size) void* data, _In_ size_t size
 	stream->InitializeFromMemory((WICInProcPointer)data, size);
 
 	IWICBitmapDecoder* decoder;
-	ThrowOnFail(r->GetImageFactroy()->CreateDecoderFromStream(stream, nullptr, WICDecodeMetadataCacheOnLoad, &decoder), "Decoder creation failed!");
+	ThrowOnFail(r->GetImageFactroy()->CreateDecoderFromStream(stream, nullptr, WICDecodeMetadataCacheOnDemand, &decoder), "Decoder creation failed!");
+
+	IWICFormatConverter* converter = nullptr;
+	ThrowOnFail(r->GetImageFactroy()->CreateFormatConverter(&converter), "Converter creation failed!");
+
+	UINT count;
+	ThrowOnFail(decoder->GetFrameCount(&count), "Frame counting failed!");
 
 	IWICBitmapFrameDecode* frame;
 	ThrowOnFail(decoder->GetFrame(0, &frame), "Fetching of bitmap frame failed!");
@@ -45,6 +59,7 @@ ImageResource::ImageResource(_In_reads_bytes_(size) void* data, _In_ size_t size
 	ThrowOnFail(r->GetTarget()->CreateBitmapFromWicBitmap(frame, &m_bmp), "Bitmap creation failed!");
 
 	SafeRelease(frame);
+	SafeRelease(converter);
 	SafeRelease(decoder);
 	SafeRelease(stream);
 }

@@ -20,3 +20,11 @@ void ThrowOnExc(_In_opt_ MonoException* exc)
     if (exc != nullptr)
         throw std::runtime_error(mono_string_to_utf8(mono_object_to_string((MonoObject*)exc, nullptr)));
 }
+
+std::string ComErrMsg(HRESULT hres)
+{
+    std::wstring ws = std::wstring(_com_error(hres).ErrorMessage());
+    char buffer[512];
+    wcstombs_s(nullptr, buffer, 512, ws.data(), ws.size());
+    return buffer;
+}

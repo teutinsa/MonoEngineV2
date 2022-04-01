@@ -11,7 +11,7 @@ void Components2D::RegisterIntCalls()
 }
 
 ImageRenderer::ImageRenderer()
-	: Component(ILRuntime::GetCurrent()->GetLibClasByName("MonoEngineV2Lib", "ImageRenderer")), image(nullptr)
+	: Component(ILRuntime::GetCurrent()->GetLibClasByName("MonoEngineV2Lib", "ImageRenderer")), image(nullptr), interpolate(true), opacity(1.0f)
 {
 }
 
@@ -22,6 +22,14 @@ ImageRenderer::~ImageRenderer()
 
 void ImageRenderer::RegisterIntCalls()
 {
+	ILRuntime::RegIntCall("MonoEngineV2Lib.ImageRenderer::get_Image", Mono_get_Image);
+	ILRuntime::RegIntCall("MonoEngineV2Lib.ImageRenderer::set_Image", Mono_set_Image);
+	ILRuntime::RegIntCall("MonoEngineV2Lib.ImageRenderer::get_Size", Mono_get_Size);
+	ILRuntime::RegIntCall("MonoEngineV2Lib.ImageRenderer::set_Size", Mono_set_Size);
+	ILRuntime::RegIntCall("MonoEngineV2Lib.ImageRenderer::get_Interpolate", Mono_get_Interpolate);
+	ILRuntime::RegIntCall("MonoEngineV2Lib.ImageRenderer::set_Interpolate", Mono_set_Interpolate);
+	ILRuntime::RegIntCall("MonoEngineV2Lib.ImageRenderer::get_Opacity", Mono_get_Opacity);
+	ILRuntime::RegIntCall("MonoEngineV2Lib.ImageRenderer::set_Opacity", Mono_set_Opacity);
 }
 
 size_t ImageRenderer::GetHash() const
@@ -37,7 +45,7 @@ void ImageRenderer::Render()
 	Renderer2D* r = (Renderer2D*)Renderer::GetCurrent();
 	ID2D1RenderTarget* t = r->GetTarget();
 
-	D2D1_RECT_F rect = D2D1::RectF(-size.x / 2, -size.y / 2, size.x, size.y);
+	D2D1_RECT_F rect = D2D1::RectF(-size.x / 2, -size.y / 2, (-size.x / 2) + size.x, (-size.y / 2) + size.y);
 	D2D1_SIZE_U sz = image->GetBitmap()->GetPixelSize();
 
 	t->DrawBitmap(image->GetBitmap(), rect, opacity, interpolate ? D2D1_BITMAP_INTERPOLATION_MODE_LINEAR : D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR, D2D1::RectF(0, 0, sz.width, sz.height));
@@ -174,7 +182,7 @@ void ShapeRenderer::Render()
 	Renderer2D* r = (Renderer2D*)Renderer::GetCurrent();
 	ID2D1RenderTarget* t = r->GetTarget();
 
-	D2D1_RECT_F rect = D2D1::RectF(-size.x / 2, -size.y / 2, size.x, size.y);
+	D2D1_RECT_F rect = D2D1::RectF(-size.x / 2, -size.y / 2, (-size.x / 2) + size.x, (-size.y / 2) + size.y);
 
 	if (shapeType == ShapeType::Line)
 	{
