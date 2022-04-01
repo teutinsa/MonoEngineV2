@@ -21,10 +21,12 @@ struct StartupInfo
 };
 
 Application::Application()
-	: m_runtime(nullptr), m_settigs(nullptr), m_wnd(nullptr), m_renderer(nullptr), m_scenes(nullptr)
+	: m_runtime(nullptr), m_settigs(nullptr), m_wnd(nullptr), m_renderer(nullptr), m_scenes(nullptr), m_input(nullptr), m_sound(nullptr), m_startupInfo(nullptr)
 {
 	m_msg = T_CALLOC(MSG);
 	m_initialized = false;
+
+	s_current = this;
 }
 
 Application::~Application()
@@ -47,14 +49,14 @@ void Application::Run()
 
 	float lastTime = GetTime();
 	float currTime = 0.0f;
-	float deltaTime = 0.0f;
+	m_deltaTime = 0.0f;
 	float frameTime = 0.0f;
 	unsigned frames = 0;
 
 	while (m_msg->message != WM_QUIT)
 	{
 		currTime = GetTime();
-		deltaTime = currTime - lastTime;
+		m_deltaTime = currTime - lastTime;
 		lastTime = currTime;
 
 		if (frameTime >= 1.0f)
@@ -65,7 +67,7 @@ void Application::Run()
 		}
 		else
 		{
-			frameTime += deltaTime;
+			frameTime += m_deltaTime;
 			frames++;
 		}
 
@@ -76,7 +78,7 @@ void Application::Run()
 		Update();
 		Render();
 
-		m_runtime->GC();
+		//m_runtime->GC();
 	}
 
 	Shut();
@@ -169,7 +171,8 @@ void Application::Render()
 
 void Application::RegisterIntCalls()
 {
-	ILRuntime::RegIntCall("MonoEngineV2Lib.Application::Quit", IntCall_Quit);
+	ILRuntime::RegIntCall("MonoEngineV2Lib.Application::Quit", Mono_Quit);
+	ILRuntime::RegIntCall("MonoEngineV2Lib.Time::get_DeltaTime", Mono_get_DeltaTime);
 
 	Input::RegisterIntCalls();
 	SceneManager::RegisterIntCalls();
@@ -244,7 +247,12 @@ void Application::ParseStartupData(_In_ MonoMethod* mth)
 	m_scenes->LoadScene(m_startupInfo->startSceneIndex);
 }
 
-void Application::IntCall_Quit()
+void Application::Mono_Quit()
 {
 	Application::GetCurrent()->Quit();
+}
+
+float Application::Mono_get_DeltaTime()
+{
+	return Application::GetCurrent()->m_deltaTime;
 }

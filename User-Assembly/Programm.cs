@@ -8,6 +8,10 @@ namespace User_Assembly
         {
             if(Input.GetKeyUp(KeyCode.Esc))
                 Application.Quit();
+
+            Vector2f pos = GameObject.Transform.Position;
+            pos.x += 2f * Time.DeltaTime;
+            GameObject.Transform.Position = pos;
         }
     }
 
@@ -27,10 +31,6 @@ namespace User_Assembly
                     GameObject obj = scene.CreateObject("Test");
                     obj.Transform.Position = new Vector2f(64, 64);
                     obj.AddComponent<TestScript>();
-                    //ShapeRenderer shape = obj.AddComponent<ShapeRenderer>();
-                    //shape.ShapeType = ShapeType.Rectangle;
-                    //shape.Size = new Vector2f(5, 5);
-                    //shape.Brush = brush;
                     ImageRenderer renderer = obj.AddComponent<ImageRenderer>();
                     renderer.Size = new Vector2f(16, 16);
                     renderer.Interpolate = false;

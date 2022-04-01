@@ -58,6 +58,7 @@
     <Compile Include="ShapeType.cs" />
     <Compile Include="SolidColorBrush.cs" />
     <Compile Include="StartupData.cs" />
+    <Compile Include="Time.cs" />
     <Compile Include="Transform.cs" />
     <Compile Include="Vector2f.cs" />
     <Compile Include="Vector2Int.cs" />

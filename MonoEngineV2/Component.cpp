@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Component.h"
 
+#include "GameObject.h"
 #include "ILRuntime.h"
 #include "Components2D.h"
 
@@ -36,6 +37,8 @@ void Component::Render()
 
 void Component::RegisterIntCalls()
 {
+	ILRuntime::RegIntCall("MonoEngineV2Lib.Component::get_GameObject", Mono_get_GameObject);
+
 	ScriptComponent::RegisterIntCalls();
 	Components2D::RegisterIntCalls();
 }
@@ -44,6 +47,18 @@ _Ret_notnull_
 MonoObject* Component::GetManagedObject() const
 {
 	return m_managed;
+}
+
+MonoObject* Component::Mono_get_GameObject(MonoObject* obj)
+{
+	static MonoClassField* nativeFld;
+	if (nativeFld == nullptr)
+		nativeFld = mono_class_get_field_from_name(ILRuntime::GetCurrent()->GetLibClasByName("MonoEngineV2Lib", "Object"), "m_native");
+	
+	Component* comp;
+	mono_field_get_value(obj, nativeFld, &comp);
+
+	return comp->m_gameObject->GetManagedObject();
 }
 
 ScriptComponent::ScriptComponent(_In_ MonoClass* klass)

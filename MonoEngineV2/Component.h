@@ -46,6 +46,8 @@ private:
 	MonoObject* m_managed;
 	uint32_t m_handle;
 	GameObject* m_gameObject;
+
+	static MonoObject* Mono_get_GameObject(MonoObject* obj);
 };
 
 class ScriptComponent : public Component

@@ -46,6 +46,7 @@ private:
 	Input* m_input;
 	SceneManager* m_scenes;
 	StartupInfo* m_startupInfo;
+	float m_deltaTime;
 
 	/// <summary>
 	/// Gets the current time in seconds.
@@ -82,5 +83,6 @@ private:
 	void ParseStartupData(_In_ MonoMethod* mth);
 
 	//Internal calls
-	static void IntCall_Quit();
+	static void Mono_Quit();
+	static float Mono_get_DeltaTime();
 };

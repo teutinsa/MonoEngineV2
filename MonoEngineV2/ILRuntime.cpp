@@ -50,7 +50,7 @@ void ILRuntime::LoadUserLib(_In_ const std::string& filename)
 
 void ILRuntime::GC()
 {
-	mono_gc_collect(mono_gc_max_generation());
+	mono_gc_collect(mono_gc_max_generation() - 1);
 }
 
 int64_t ILRuntime::GetHeapSize() const
