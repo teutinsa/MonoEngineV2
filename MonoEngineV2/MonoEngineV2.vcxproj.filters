@@ -54,7 +54,7 @@
     <ClCompile Include="Vector2Int.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="Vector2f.cpp">
+    <ClCompile Include="Vector3f.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="ColorF.cpp">
@@ -131,7 +131,7 @@
     <ClInclude Include="Vector2Int.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Vector2f.h">
+    <ClInclude Include="Vector3f.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="ColorF.h">

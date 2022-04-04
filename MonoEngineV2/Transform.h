@@ -1,6 +1,6 @@
 #pragma once
 #include "Core.h"
-#include "Vector2f.h"
+#include "Vector3f.h"
 
 class GameObject;
 
@@ -10,7 +10,7 @@ public:
 	/// <summary>
 	/// The position of the transform.
 	/// </summary>
-	Vector2f position;
+	Vector3f position;
 	/// <summary>
 	/// The rotation angle of the transform in degrees.
 	/// </summary>
@@ -18,7 +18,7 @@ public:
 	/// <summary>
 	/// The scale of the transform.
 	/// </summary>
-	Vector2f scale;
+	Vector3f scale;
 	/// <summary>
 	/// The parent of the transform.
 	/// </summary>
@@ -43,12 +43,12 @@ private:
 	uint32_t m_handle;
 	GameObject* m_object;
 
-	static Vector2f Mono_get_Position(MonoObject* obj);
-	static void Mono_set_Position(MonoObject* obj, Vector2f value);
+	static Vector3f Mono_get_Position(MonoObject* obj);
+	static void Mono_set_Position(MonoObject* obj, Vector3f value);
 	static float Mono_get_Rotation(MonoObject* obj);
 	static void Mono_set_Rotation(MonoObject* obj, float value);
-	static Vector2f Mono_get_Scale(MonoObject* obj);
-	static void Mono_set_Scale(MonoObject* obj, Vector2f value);
+	static Vector3f Mono_get_Scale(MonoObject* obj);
+	static void Mono_set_Scale(MonoObject* obj, Vector3f value);
 	static MonoObject* Mono_get_Parent(MonoObject* obj);
 	static void Mono_set_Parent(MonoObject* obj, MonoObject* value);
 };

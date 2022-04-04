@@ -12,7 +12,7 @@ namespace MonoEngineV2Lib
             set;
         }
 
-        public extern Vector2f Size
+        public extern Vector3f Size
         {
             [MethodImpl(MethodImplOptions.InternalCall)]
             get;

@@ -193,7 +193,7 @@ xcopy "C:\Program Files\Mono\bin\mono-2.0-sgen.dll" "$(SolutionDir)$(Platform)\$
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Transform.cpp" />
-    <ClCompile Include="Vector2f.cpp" />
+    <ClCompile Include="Vector3f.cpp" />
     <ClCompile Include="Vector2Int.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -218,7 +218,7 @@ xcopy "C:\Program Files\Mono\bin\mono-2.0-sgen.dll" "$(SolutionDir)$(Platform)\$
     <ClInclude Include="Settings.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Transform.h" />
-    <ClInclude Include="Vector2f.h" />
+    <ClInclude Include="Vector3f.h" />
     <ClInclude Include="Vector2Int.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

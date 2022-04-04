@@ -78,7 +78,7 @@ void ImageRenderer::Mono_set_Image(MonoObject* obj, MonoObject* value)
 	r->image = img;
 }
 
-Vector2f ImageRenderer::Mono_get_Size(MonoObject* obj)
+Vector3f ImageRenderer::Mono_get_Size(MonoObject* obj)
 {
 	static MonoClassField* nativeFld;
 	if (nativeFld == nullptr)
@@ -90,7 +90,7 @@ Vector2f ImageRenderer::Mono_get_Size(MonoObject* obj)
 	return r->size;
 }
 
-void ImageRenderer::Mono_set_Size(MonoObject* obj, Vector2f value)
+void ImageRenderer::Mono_set_Size(MonoObject* obj, Vector3f value)
 {
 	static MonoClassField* nativeFld;
 	if (nativeFld == nullptr)
@@ -300,7 +300,7 @@ void ShapeRenderer::Mono_set_Filled(MonoObject* obj, bool value)
 	r->filled = value;
 }
 
-Vector2f ShapeRenderer::Mono_get_Size(MonoObject* obj)
+Vector3f ShapeRenderer::Mono_get_Size(MonoObject* obj)
 {
 	static MonoClassField* nativeFld;
 	if (nativeFld == nullptr)
@@ -312,7 +312,7 @@ Vector2f ShapeRenderer::Mono_get_Size(MonoObject* obj)
 	return r->size;
 }
 
-void ShapeRenderer::Mono_set_Size(MonoObject* obj, Vector2f value)
+void ShapeRenderer::Mono_set_Size(MonoObject* obj, Vector3f value)
 {
 	static MonoClassField* nativeFld;
 	if (nativeFld == nullptr)

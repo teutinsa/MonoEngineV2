@@ -17,5 +17,10 @@ namespace MonoEngineV2Lib
             b = _b;
             a = _a;
         }
+
+        public override string ToString()
+        {
+            return $"{{r={r}, g={g}, b={b}, a={a}}}";
+        }
     }
 }

@@ -55,7 +55,7 @@ D2D1_MATRIX_3X2_F Transform::GetMatrix() const
 		* D2D1::Matrix3x2F::Scale(D2D1::SizeF(scale.x, scale.y), D2D1::Point2F(position.x, position.y));
 }
 
-Vector2f Transform::Mono_get_Position(MonoObject* obj)
+Vector3f Transform::Mono_get_Position(MonoObject* obj)
 {
 	static MonoClassField* nativeFld;
 	if (nativeFld == nullptr)
@@ -63,11 +63,11 @@ Vector2f Transform::Mono_get_Position(MonoObject* obj)
 
 	Transform* t;
 	mono_field_get_value(obj, nativeFld, &t);
-	
+
 	return t->position;
 }
 
-void Transform::Mono_set_Position(MonoObject* obj, Vector2f value)
+void Transform::Mono_set_Position(MonoObject* obj, Vector3f value)
 {
 	static MonoClassField* nativeFld;
 	if (nativeFld == nullptr)
@@ -103,7 +103,7 @@ void Transform::Mono_set_Rotation(MonoObject* obj, float value)
 	t->rotation = value;
 }
 
-Vector2f Transform::Mono_get_Scale(MonoObject* obj)
+Vector3f Transform::Mono_get_Scale(MonoObject* obj)
 {
 	static MonoClassField* nativeFld;
 	if (nativeFld == nullptr)
@@ -115,7 +115,7 @@ Vector2f Transform::Mono_get_Scale(MonoObject* obj)
 	return t->scale;
 }
 
-void Transform::Mono_set_Scale(MonoObject* obj, Vector2f value)
+void Transform::Mono_set_Scale(MonoObject* obj, Vector3f value)
 {
 	static MonoClassField* nativeFld;
 	if (nativeFld == nullptr)

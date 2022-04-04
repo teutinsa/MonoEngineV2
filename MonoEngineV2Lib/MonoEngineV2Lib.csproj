@@ -60,7 +60,7 @@
     <Compile Include="StartupData.cs" />
     <Compile Include="Time.cs" />
     <Compile Include="Transform.cs" />
-    <Compile Include="Vector2f.cs" />
+    <Compile Include="Vector3f.cs" />
     <Compile Include="Vector2Int.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

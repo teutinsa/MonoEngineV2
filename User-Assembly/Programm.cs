@@ -1,4 +1,6 @@
 ﻿using MonoEngineV2Lib;
+using System;
+using System.Runtime.InteropServices;
 
 namespace User_Assembly
 {
@@ -8,15 +10,14 @@ namespace User_Assembly
         {
             if(Input.GetKeyUp(KeyCode.Esc))
                 Application.Quit();
-
-            Vector2f pos = GameObject.Transform.Position;
-            pos.x += 2f * Time.DeltaTime;
-            GameObject.Transform.Position = pos;
         }
     }
 
     public static class Programm
     {
+        [DllImport("user32.dll")]
+        public static extern int MessageBoxW(IntPtr hwnd, [MarshalAs(UnmanagedType.LPWStr)] string message, [MarshalAs(UnmanagedType.LPWStr)] string title, int style);
+
         static StartupData Main()
         {
             return new StartupData("Test Game", 0, new SceneCreateProc[]
@@ -27,16 +28,19 @@ namespace User_Assembly
                     Image img = ResourceLoader2D.LoadImage(scene.ResourceManager, "img", @"C:\Users\Florian Schumacher\Desktop\UIBackground.png");
 
                     scene.ClearColor = new ColorF(0.0f, 1.0f, 0.0f);
+                    MessageBoxW(IntPtr.Zero, scene.ClearColor.ToString(), "Test C", 0);
 
                     GameObject obj = scene.CreateObject("Test");
-                    obj.Transform.Position = new Vector2f(64, 64);
+                    obj.Transform.Position = new Vector3f(128, 128);
+                    //obj.Transform.Scale = new Vector2f(1.5f, 1.5f);
+                    MessageBoxW(IntPtr.Zero, obj.Transform.Position.ToString(), "Test P", 0);
                     obj.AddComponent<TestScript>();
                     ImageRenderer renderer = obj.AddComponent<ImageRenderer>();
-                    renderer.Size = new Vector2f(16, 16);
+                    renderer.Size = new Vector3f(16, 16);
                     renderer.Interpolate = false;
                     renderer.Image = img;
                 }
-            }, BufferType.Custom, new Vector2Int(128, 128), CoordinateMode.PixelPerfect);
+            }, BufferType.Custom, new Vector2Int(16 * 16, 16 * 16), CoordinateMode.PixelPerfect);
         }
     }
 }

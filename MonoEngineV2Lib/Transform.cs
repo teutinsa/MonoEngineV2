@@ -4,7 +4,7 @@ namespace MonoEngineV2Lib
 {
     public sealed class Transform : EngineObject
     {
-        public extern Vector2f Position
+        public extern Vector3f Position
         {
             [MethodImpl(MethodImplOptions.InternalCall)]
             get;
@@ -20,7 +20,7 @@ namespace MonoEngineV2Lib
             set;
         }
 
-        public extern Vector2f Scale
+        public extern Vector3f Scale
         {
             [MethodImpl(MethodImplOptions.InternalCall)]
             get;
