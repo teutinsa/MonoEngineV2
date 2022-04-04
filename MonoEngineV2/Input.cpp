@@ -3,7 +3,7 @@
 
 #include "ILRuntime.h"
 
-#define HiBitSet(x) (x == 1 << 7)
+#define HiBitSet(x) (x & 0x80)
 
 Input::Input()
 {

@@ -26,6 +26,14 @@ Application::Application()
 	m_msg = T_CALLOC(MSG);
 	m_initialized = false;
 
+#ifdef DEBUG
+	m_path = PATH;
+#else
+	char buffer[FILENAME_MAX];
+	GetCurrentDirectoryA(FILENAME_MAX, buffer);
+	m_path = buffer;
+#endif
+
 	s_current = this;
 }
 
@@ -110,12 +118,12 @@ void Application::Init()
 	if (m_initialized)
 		return;
 
-	m_runtime = new ILRuntime(PATH, "MonoEngine");
+	m_runtime = new ILRuntime(m_path, "MonoEngine");
 	m_runtime->LoadCoreLib();
-	m_runtime->LoadEngineLib(PATH "\\MonoEngineV2Lib.dll");
-	m_runtime->LoadUserLib(PATH "\\User-Assembly.dll");
+	m_runtime->LoadEngineLib(m_path + "\\MonoEngineV2Lib.dll");
+	m_runtime->LoadUserLib(m_path + "\\User-Assembly.dll");
 
-	m_settigs = new Settings(PATH "\\Settings.dll");
+	m_settigs = new Settings(m_path + "\\Settings.dll");
 	
 	m_wnd = new Window();
 	m_wnd->closeAction = WindowCloseAction::Quit;

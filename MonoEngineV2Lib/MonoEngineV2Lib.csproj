@@ -45,6 +45,7 @@
     <Compile Include="ImageRenderer.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="KeyCode.cs" />
+    <Compile Include="MathF.cs" />
     <Compile Include="NotContructibleException.cs" />
     <Compile Include="Object.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

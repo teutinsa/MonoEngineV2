@@ -17,7 +17,7 @@ ILRuntime::~ILRuntime()
 }
 
 _Success_(return != nullptr)
-void ILRuntime::RegIntCall(const std::string & name, void* func)
+void ILRuntime::RegIntCall(_In_ const std::string & name, _In_ void* func)
 {
 	mono_add_internal_call(name.c_str(), func);
 }
@@ -115,6 +115,11 @@ MonoException* ILRuntime::Invoke(_In_ MonoMethod* method, _In_opt_ MonoObject* o
 	MonoMethod* mth = method;
 	if (obj != nullptr)
 		mth = mono_object_get_virtual_method(obj, method);
+
+#ifdef DEBUG
+	const char* clName = mono_class_get_name(mono_method_get_class(method));
+	const char* mthName = mono_method_get_name(method);
+#endif
 
 	if(ret == nullptr)
 		mono_runtime_invoke(method, obj, args, &exc);

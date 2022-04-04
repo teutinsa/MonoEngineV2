@@ -47,6 +47,7 @@ private:
 	SceneManager* m_scenes;
 	StartupInfo* m_startupInfo;
 	float m_deltaTime;
+	std::string m_path;
 
 	/// <summary>
 	/// Gets the current time in seconds.
