@@ -8,7 +8,7 @@ ILRuntime::ILRuntime(_In_ const std::string& path, _In_ const std::string& appNa
 
 	mono_set_dirs(path.c_str(), path.c_str());
 	mono_config_parse(nullptr);
-	m_domain = mono_jit_init(appName.c_str());
+	m_domain = mono_jit_init_version(appName.c_str(), "v4.5");
 }
 
 ILRuntime::~ILRuntime()

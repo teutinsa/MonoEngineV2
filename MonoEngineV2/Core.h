@@ -45,3 +45,5 @@ void DebugOut(_Printf_format_string_ const char* szFormat, ...);
 void ThrowOnExc(_In_opt_ MonoException* exc);
 
 std::string ComErrMsg(HRESULT hres);
+
+#define DbgMsg(msg) MessageBoxA(nullptr, msg, "Debug", MB_OK);
